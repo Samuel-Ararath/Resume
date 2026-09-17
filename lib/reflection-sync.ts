@@ -37,8 +37,14 @@ async function toReflection(page: NotionPage): Promise<ReflectionEntry | null> {
   const properties = page.properties ?? {}
   const title = text(properties.Nama)
   if (!title) return null
-  const body = await pageBody(page.id)
-  const excerpt = text(properties.Cuplikan) || stripMarkdown(body).slice(0, 180)
+  const rawBody = await pageBody(page.id)
+  const fallbackExcerpt = stripMarkdown(rawBody).match(/^(.+?\([^)]{1,60}\))/)?.[1] ?? stripMarkdown(rawBody).slice(0, 180)
+  const excerpt = text(properties.Cuplikan) || fallbackExcerpt
+  const bodyParagraphs = rawBody.split(/\n\n+/).filter(Boolean)
+  const normalizedExcerpt = stripMarkdown(excerpt).replace(/\s+/g, ' ').trim().toLowerCase()
+  const normalizedOpening = stripMarkdown(bodyParagraphs[0] ?? '').replace(/\s+/g, ' ').trim().toLowerCase()
+  const repeatedOpening = normalizedExcerpt.length > 60 && normalizedOpening.startsWith(normalizedExcerpt.slice(0, Math.min(120, normalizedExcerpt.length)))
+  const body = repeatedOpening ? bodyParagraphs.slice(1).join('\n\n').trim() : rawBody
   const date = properties.Tanggal?.date?.start ?? ''
   return { number: date ? new Date(date).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) : '—', title: stripMarkdown(title), excerpt, theme: list(properties.Topik)[0] || 'Renungan', slug: slugify(title), date, author: text(properties.Penulis), topics: list(properties.Topik), tags: list(properties.Tag), body, sourceUrl: page.url }
 }
