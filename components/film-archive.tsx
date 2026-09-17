@@ -14,11 +14,12 @@ function RatingValue({ value }: { value: string }) {
 }
 
 function FilmTable({ title, films }: { title: string; films: Film[] }) {
+  const isSearchResult = title === 'Hasil pencarian'
   return (
     <section className="film-database-panel" aria-labelledby={`film-panel-${title.toLowerCase().replaceAll(' ', '-')}`}>
       <div className="film-panel-heading">
         <div>
-          <span className="film-panel-index">{title === 'Anime' ? '01' : title === 'TV Series' ? '02' : '03'}</span>
+          <span className="film-panel-index">{isSearchResult ? '⌕' : title === 'Anime' ? '01' : title === 'TV Series' ? '02' : '03'}</span>
           <h2 id={`film-panel-${title.toLowerCase().replaceAll(' ', '-')}`}>{title}</h2>
         </div>
         <span className="film-panel-count">{films.length} judul</span>
@@ -69,8 +70,11 @@ export function FilmArchive({ films, synced, notionUrl }: { films: Film[]; synce
     })
   }, [films, genre, query, sort, status, type])
 
+  const isSearching = query.trim().length > 0
   const visibleGroups = type === 'Semua' ? databaseTypes : [type]
-  const groupedFilms = visibleGroups.map((databaseType) => ({ type: databaseType, films: filteredFilms.filter((film) => film.type === databaseType) }))
+  const groupedFilms = isSearching
+    ? [{ type: 'Hasil pencarian', films: filteredFilms }]
+    : visibleGroups.map((databaseType) => ({ type: databaseType, films: filteredFilms.filter((film) => film.type === databaseType) }))
 
   return (
     <section className="film-database" aria-label="Personal viewing database">
