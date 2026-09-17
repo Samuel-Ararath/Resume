@@ -1,5 +1,5 @@
 export type Book = { title: string; author: string; note: string; category: string }
-export type Film = { title: string; type: string; year: string; status: string }
+export type Film = { title: string; type: 'Anime' | 'TV Series' | 'Film'; rating: string; watchStatus: 'Sudah selesai' | 'Belum nonton' | 'Sedang nonton'; genres: string[]; progress: string; malRating: string }
 export type Reflection = { number: string; title: string; excerpt: string; theme: string }
 export type Experience = { company: string; role: string; period: string; location: string; description: string }
 
@@ -29,9 +29,23 @@ export const books: Book[] = [
 ]
 
 export const films: Film[] = [
-  { title: 'Daftar film akan segera hadir', type: 'Film / Series', year: '—', status: 'From Notion' },
-  { title: 'Kurasi tontonan personal', type: 'Anime / TV / Film', year: '—', status: 'Coming soon' },
-  { title: 'Catatan setelah menonton', type: 'Personal notes', year: '—', status: 'Coming soon' },
+  { title: '2.5-jigen no Ririsa', type: 'Anime', rating: '⭐️⭐️⭐️', watchStatus: 'Belum nonton', genres: ['Comedy', 'Ecchi', 'Harem', 'School', 'Shounen'], progress: 'Tamat · 12 eps', malRating: '6.6' },
+  { title: '3D Kanojo: Real Girl', type: 'Anime', rating: '⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Romance', 'School', 'Shoujo'], progress: 'Tamat · 24 eps', malRating: '7.1' },
+  { title: '5-toubun no Hanayome', type: 'Anime', rating: '⭐️⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Comedy', 'Harem', 'Romance', 'School', 'Shounen'], progress: 'Tamat · 24 eps', malRating: '7.6' },
+  { title: '86 (Eighty Six)', type: 'Anime', rating: '⭐️⭐️⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Drama', 'Mecha', 'Sci-Fi'], progress: 'Tamat · 23 eps', malRating: '8.4' },
+  { title: 'Absolute Duo', type: 'Anime', rating: '⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Ecchi', 'Harem', 'Romance', 'School', 'Supernatural'], progress: 'Tamat · 12 eps', malRating: '6.6' },
+  { title: 'Accel World', type: 'Anime', rating: '⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Game', 'Isekai', 'Romance', 'School', 'Sci-Fi', 'Shounen'], progress: 'Tamat · 24 eps', malRating: '7.1' },
+  { title: 'Ahiru no Sora', type: 'Anime', rating: '⭐️', watchStatus: 'Sudah selesai', genres: ['Comedy', 'Drama', 'School', 'Shounen', 'Sports'], progress: 'Tamat · 50 eps', malRating: '6.9' },
+  { title: 'Akagami no Shirayuki-hime', type: 'Anime', rating: '⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Drama', 'Fantasy', 'Historical', 'Romance', 'Shoujo'], progress: 'Tamat · 24 eps', malRating: '7.9' },
+  { title: 'Akame ga Kill', type: 'Anime', rating: '⭐️⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Adventure', 'Drama', 'Fantasy', 'Shounen'], progress: 'Tamat · 24 eps', malRating: '7.5' },
+  { title: 'Akatsuki no Yona', type: 'Anime', rating: '⭐️⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Comedy', 'Fantasy', 'Romance', 'Shoujo'], progress: 'Tamat · 24 eps', malRating: '8.0' },
+  { title: 'Aldnoah Zero', type: 'Anime', rating: '⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Mecha', 'Sci-Fi'], progress: 'Tamat · 24 eps', malRating: '7.0' },
+  { title: 'Amagami SS', type: 'Anime', rating: '⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Comedy', 'Romance', 'School', 'Slice of Life'], progress: 'Tamat · 24 eps', malRating: '7.2' },
+  { title: 'Amagi Brilliant Park', type: 'Anime', rating: '⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Comedy', 'Drama', 'Fantasy', 'Magic'], progress: 'Tamat · 13 eps', malRating: '7.1' },
+  { title: 'Angel Beats!', type: 'Anime', rating: '⭐️⭐️⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Comedy', 'Drama', 'School', 'Supernatural'], progress: 'Tamat · 13 eps', malRating: '8.0' },
+  { title: 'Ao Ashi', type: 'Anime', rating: '⭐️⭐️', watchStatus: 'Belum nonton', genres: ['Seinen', 'Sports'], progress: 'Tamat · 24 eps', malRating: '7.7' },
+  { title: 'Ao no Exorcist', type: 'Anime', rating: '⭐️⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Demon', 'Fantasy', 'Shounen', 'Supernatural'], progress: 'Tamat · 73 eps', malRating: '7.5' },
+  { title: 'Arifureta Shokugyou de Sekai Saikyou', type: 'Anime', rating: '⭐️⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Adventure', 'Fantasy', 'Harem', 'Isekai'], progress: 'Ongoing · 37 eps', malRating: '7.1' },
 ]
 
 export const reflections: Reflection[] = [
