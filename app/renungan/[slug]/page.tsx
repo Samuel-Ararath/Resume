@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation'
 import { PageChrome } from '@/components/page-chrome'
 import { getSyncedReflections } from '@/lib/reflection-sync'
 
+export const dynamic = 'force-dynamic'
+
 export default async function ReflectionDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const { reflections } = await getSyncedReflections()
