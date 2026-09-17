@@ -47,18 +47,39 @@ function toFilm(page: NotionPage): Film | null {
   return { title, type, rating: rating || '—', watchStatus: asStatus(plain(findProperty(properties, ['status tonton', 'watch status', 'watch', 'status']))), genres, progress: progress || '—', malRating: '—', source: 'Notion' }
 }
 
-async function notionPages() {
-  const databaseId = process.env.NOTION_DATABASE_ID
-  if (!databaseId || !process.env.NOTION_TOKEN) return []
+async function queryDatabase(databaseId: string) {
   const databaseResponse = await fetch(`https://api.notion.com/v1/databases/${databaseId}`, { headers: notionHeaders, cache: 'no-store' })
-  if (!databaseResponse.ok) throw new Error(`Notion database request failed: ${databaseResponse.status}`)
+  if (!databaseResponse.ok) return []
   const database = await databaseResponse.json() as { data_sources?: Array<{ id: string }> }
   const dataSourceId = database.data_sources?.[0]?.id
   const endpoint = dataSourceId ? `https://api.notion.com/v1/data_sources/${dataSourceId}/query` : `https://api.notion.com/v1/databases/${databaseId}/query`
   const response = await fetch(endpoint, { method: 'POST', headers: { ...notionHeaders, ...(dataSourceId ? { 'Notion-Version': '2025-09-03' } : {}) }, body: JSON.stringify({ page_size: 100 }), cache: 'no-store' })
-  if (!response.ok) throw new Error(`Notion query failed: ${response.status}`)
+  if (!response.ok) return []
   const data = await response.json() as { results?: NotionPage[] }
   return (data.results ?? []).map(toFilm).filter((film): film is Film => Boolean(film))
+}
+
+async function discoverChildDatabases(blockId: string, depth = 0): Promise<string[]> {
+  if (depth > 4) return []
+  const response = await fetch(`https://api.notion.com/v1/blocks/${blockId}/children?page_size=100`, { headers: notionHeaders, cache: 'no-store' })
+  if (!response.ok) return []
+  const data = await response.json() as { results?: Array<{ id: string; type?: string; has_children?: boolean }> }
+  const ids: string[] = []
+  for (const block of data.results ?? []) {
+    if (block.type === 'child_database') ids.push(block.id)
+    if (block.has_children) ids.push(...await discoverChildDatabases(block.id, depth + 1))
+  }
+  return ids
+}
+
+async function notionPages() {
+  const databaseId = process.env.NOTION_DATABASE_ID
+  if (!databaseId || !process.env.NOTION_TOKEN) return []
+  const directFilms = await queryDatabase(databaseId)
+  if (directFilms.length) return directFilms
+  const childDatabaseIds = await discoverChildDatabases(databaseId)
+  const childFilms = await Promise.all(childDatabaseIds.map(queryDatabase))
+  return childFilms.flat()
 }
 
 async function enrichFilm(film: Film): Promise<Film> {
