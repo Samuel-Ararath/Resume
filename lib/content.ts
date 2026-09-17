@@ -1,5 +1,5 @@
 export type Book = { title: string; author: string; note: string; category: string }
-export type Film = { title: string; type: 'Anime' | 'TV Series' | 'Film'; rating: string; watchStatus: 'Sudah selesai' | 'Belum nonton' | 'Sedang nonton'; genres: string[]; progress: string; malRating: string }
+export type Film = { title: string; type: 'Anime' | 'TV Series' | 'Film'; rating: string; watchStatus: 'Sudah selesai' | 'Belum nonton' | 'Sedang nonton'; genres: string[]; progress: string; malRating: string; generalRating?: string; poster?: string; source?: string }
 export type Reflection = { number: string; title: string; excerpt: string; theme: string }
 export type Experience = { company: string; role: string; period: string; location: string; description: string }
 
