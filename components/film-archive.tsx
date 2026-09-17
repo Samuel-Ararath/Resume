@@ -44,7 +44,7 @@ function FilmTable({ title, films }: { title: string; films: Film[] }) {
   )
 }
 
-export function FilmArchive({ films, synced }: { films: Film[]; synced: boolean }) {
+export function FilmArchive({ films, synced, notionUrl }: { films: Film[]; synced: boolean; notionUrl: string }) {
   const [type, setType] = useState<(typeof types)[number]>('Semua')
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState('Semua status')
@@ -74,7 +74,7 @@ export function FilmArchive({ films, synced }: { films: Film[]; synced: boolean 
 
   return (
     <section className="film-database" aria-label="Personal viewing database">
-      <div className="database-sync-status" data-live={synced}>{synced ? 'Live dari Notion · rating diperbarui otomatis' : 'Preview lokal · hubungkan database Notion untuk data live'}</div>
+      <div className="database-sync-status" data-live={synced}><span>{synced ? 'Live dari Notion' : 'Preview lokal · hubungkan database Notion untuk data live'}</span><a className="text-link" href={notionUrl} target="_blank" rel="noreferrer">Open Notion list <span aria-hidden="true">↗</span></a></div>
       <div className="film-database-head"><div className="database-title"><span aria-hidden="true">▣</span><strong>Anime / TV Series / Film</strong></div></div>
       <div className="film-toolbar"><div className="film-filters" role="tablist" aria-label="Pilih kategori">{types.map((item) => <button key={item} type="button" role="tab" aria-selected={type === item} className={type === item ? 'is-selected' : ''} onClick={() => setType(item)}>{item}</button>)}</div><div className="film-controls"><label className="sr-only" htmlFor="film-search">Search titles or genres</label><input id="film-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Cari judul atau genre" /><label className="sr-only" htmlFor="film-status">Filter watch status</label><select id="film-status" value={status} onChange={(event) => setStatus(event.target.value)}><option>Semua status</option><option>Sudah selesai</option><option>Belum nonton</option><option>Sedang nonton</option></select><label className="sr-only" htmlFor="film-genre">Filter genre</label><select id="film-genre" value={genre} onChange={(event) => setGenre(event.target.value)}><option>Semua genre</option>{genres.map((item) => <option key={item}>{item}</option>)}</select><label className="sr-only" htmlFor="film-sort">Urutkan</label><select id="film-sort" value={sort} onChange={(event) => setSort(event.target.value as (typeof sortOptions)[number])}>{sortOptions.map((item) => <option key={item}>{item}</option>)}</select></div></div>
       <div className="film-database-grid">{groupedFilms.map((group) => <FilmTable key={group.type} title={group.type} films={group.films} />)}</div>
