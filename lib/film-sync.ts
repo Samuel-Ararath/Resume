@@ -2,84 +2,99 @@ import { films as fallbackFilms, type Film } from '@/lib/content'
 
 type NotionProperty = { type?: string; title?: Array<{ plain_text?: string }>; rich_text?: Array<{ plain_text?: string }>; select?: { name?: string } | null; status?: { name?: string } | null; number?: number | null; multi_select?: Array<{ name?: string }>; checkbox?: boolean }
 type NotionPage = { id: string; properties?: Record<string, NotionProperty> }
+type NotionDatabase = { id: string; title: string; properties?: Record<string, NotionProperty> }
 
-const notionHeaders = {
-  Authorization: `Bearer ${process.env.NOTION_TOKEN ?? ''}`,
-  'Notion-Version': '2022-06-28',
-  'Content-Type': 'application/json',
-}
+const notionHeaders = { Authorization: `Bearer ${process.env.NOTION_TOKEN ?? ''}`, 'Notion-Version': '2022-06-28', 'Content-Type': 'application/json' }
 
 function plain(property?: NotionProperty) {
   if (!property) return ''
-  if (property.title?.[0]?.plain_text) return property.title.map((item) => item.plain_text ?? '').join('')
-  if (property.rich_text?.[0]?.plain_text) return property.rich_text.map((item) => item.plain_text ?? '').join('')
-  return property.select?.name ?? property.status?.name ?? ''
+  if (property.title) return property.title.map((item) => item.plain_text ?? '').join('').trim()
+  if (property.rich_text) return property.rich_text.map((item) => item.plain_text ?? '').join('').trim()
+  return property.select?.name?.trim() ?? property.status?.name?.trim() ?? ''
 }
 
+function numberValue(property?: NotionProperty) { return property?.number == null ? '' : String(property.number) }
 function findProperty(properties: Record<string, NotionProperty>, names: string[]) {
-  const entry = Object.entries(properties).find(([name]) => names.some((candidate) => name.toLowerCase().includes(candidate)))
-  return entry?.[1]
+  const normalized = names.map((name) => name.toLowerCase())
+  return Object.entries(properties).find(([name]) => normalized.includes(name.toLowerCase()) || normalized.some((candidate) => name.toLowerCase().includes(candidate)))?.[1]
 }
-
-function asType(value: string): Film['type'] {
-  const normalized = value.toLowerCase()
-  if (normalized.includes('tv') || normalized.includes('series')) return 'TV Series'
-  if (normalized.includes('film') || normalized.includes('movie')) return 'Film'
-  return 'Anime'
+function propertyValue(properties: Record<string, NotionProperty>, names: string[]) {
+  const property = findProperty(properties, names)
+  return plain(property) || numberValue(property)
 }
-
 function asStatus(value: string): Film['watchStatus'] {
   const normalized = value.toLowerCase()
-  if (normalized.includes('watch') || normalized.includes('progress') || normalized.includes('ongoing')) return 'Sedang nonton'
-  if (normalized.includes('belum') || normalized.includes('plan') || normalized.includes('want')) return 'Belum nonton'
+  if (normalized.includes('watch') || normalized.includes('progress') || normalized.includes('ongoing') || normalized.includes('watching')) return 'Sedang nonton'
+  if (normalized.includes('belum') || normalized.includes('plan') || normalized.includes('want') || normalized.includes('pending')) return 'Belum nonton'
   return 'Sudah selesai'
 }
-
-function toFilm(page: NotionPage): Film | null {
+function asType(databaseTitle: string): Film['type'] {
+  const normalized = databaseTitle.toLowerCase()
+  if (normalized.includes('film') || normalized.includes('movie')) return 'Film'
+  if (normalized.includes('tv') || normalized.includes('series')) return 'TV Series'
+  return 'Anime'
+}
+function toFilm(page: NotionPage, databaseTitle: string): Film | null {
   const properties = page.properties ?? {}
-  const title = plain(findProperty(properties, ['title', 'name', 'judul']))
+  const title = propertyValue(properties, ['Title', 'Name', 'Judul'])
   if (!title) return null
-  const type = asType(plain(findProperty(properties, ['type', 'tipe', 'category', 'kategori'])))
-  const ratingValue = findProperty(properties, ['rating pribadi', 'personal rating', 'my rating', 'rating'])
-  const rating = ratingValue?.number != null ? String(ratingValue.number) : plain(ratingValue)
-  const genres = (findProperty(properties, ['genre', 'genres'])?.multi_select ?? []).map((item) => item.name ?? '').filter(Boolean)
-  const progress = plain(findProperty(properties, ['episode', 'progress', 'status anime', 'status tamat']))
-  return { title, type, rating: rating || '—', watchStatus: asStatus(plain(findProperty(properties, ['status tonton', 'watch status', 'watch', 'status']))), genres, progress: progress || '—', malRating: '—', source: 'Notion' }
+  const type = asType(databaseTitle)
+  const rating = propertyValue(properties, ['valutation', 'valuation', 'rating pribadi', 'personal rating', 'my rating'])
+  const genres = findProperty(properties, ['Genre', 'Genres'])?.multi_select?.map((item) => item.name?.trim() ?? '').filter(Boolean) ?? []
+  const episodes = propertyValue(properties, ['Final episodes', 'Current episodes', 'Episodes'])
+  const finalStatus = propertyValue(properties, ['Final status', 'Status Anime'])
+  const progress = [finalStatus, episodes ? `${episodes} eps` : ''].filter(Boolean).join(' · ')
+  const general = propertyValue(properties, ['Rating MAL', 'Rating general', 'TMDB rating'])
+  const watchStatus = propertyValue(properties, ['Status Tonton', 'Watch status', 'Status'])
+  return { title, type, rating: rating || '—', watchStatus: asStatus(watchStatus), genres, progress: progress || '—', malRating: type === 'Anime' ? general || '—' : '—', generalRating: type !== 'Anime' ? general || undefined : undefined, source: 'Notion' }
 }
 
-async function queryDatabase(databaseId: string) {
-  const databaseResponse = await fetch(`https://api.notion.com/v1/databases/${databaseId}`, { headers: notionHeaders, cache: 'no-store' })
-  if (!databaseResponse.ok) return []
-  const database = await databaseResponse.json() as { data_sources?: Array<{ id: string }> }
-  const dataSourceId = database.data_sources?.[0]?.id
-  const endpoint = dataSourceId ? `https://api.notion.com/v1/data_sources/${dataSourceId}/query` : `https://api.notion.com/v1/databases/${databaseId}/query`
-  const response = await fetch(endpoint, { method: 'POST', headers: { ...notionHeaders, ...(dataSourceId ? { 'Notion-Version': '2025-09-03' } : {}) }, body: JSON.stringify({ page_size: 100 }), cache: 'no-store' })
-  if (!response.ok) return []
-  const data = await response.json() as { results?: NotionPage[] }
-  return (data.results ?? []).map(toFilm).filter((film): film is Film => Boolean(film))
+async function queryDatabase(database: NotionDatabase) {
+  const pages: NotionPage[] = []
+  let cursor: string | undefined
+  do {
+    const response = await fetch(`https://api.notion.com/v1/databases/${database.id}/query`, { method: 'POST', headers: notionHeaders, body: JSON.stringify({ page_size: 100, ...(cursor ? { start_cursor: cursor } : {}) }), cache: 'no-store' })
+    if (!response.ok) return []
+    const data = await response.json() as { results?: NotionPage[]; has_more?: boolean; next_cursor?: string | null }
+    pages.push(...(data.results ?? []))
+    cursor = data.has_more ? data.next_cursor ?? undefined : undefined
+  } while (cursor)
+  return pages.map((page) => toFilm(page, database.title)).filter((film): film is Film => Boolean(film))
 }
 
-async function discoverChildDatabases(blockId: string, depth = 0): Promise<string[]> {
-  if (depth > 4) return []
+async function discoverChildDatabases(blockId: string, depth = 0): Promise<NotionDatabase[]> {
+  if (depth > 5) return []
   const response = await fetch(`https://api.notion.com/v1/blocks/${blockId}/children?page_size=100`, { headers: notionHeaders, cache: 'no-store' })
   if (!response.ok) return []
-  const data = await response.json() as { results?: Array<{ id: string; type?: string; has_children?: boolean }> }
-  const ids: string[] = []
+  const data = await response.json() as { results?: Array<{ id: string; type?: string; has_children?: boolean; child_database?: { title?: string } }> }
+  const databases: NotionDatabase[] = []
   for (const block of data.results ?? []) {
-    if (block.type === 'child_database') ids.push(block.id)
-    if (block.has_children) ids.push(...await discoverChildDatabases(block.id, depth + 1))
+    if (block.type === 'child_database') {
+      const databaseResponse = await fetch(`https://api.notion.com/v1/databases/${block.id}`, { headers: notionHeaders, cache: 'no-store' })
+      if (databaseResponse.ok) {
+        const database = await databaseResponse.json() as { id: string; title?: Array<{ plain_text?: string }>; properties?: Record<string, NotionProperty> }
+        databases.push({ id: database.id, title: database.title?.map((item) => item.plain_text ?? '').join('').trim() || block.child_database?.title || '' , properties: database.properties })
+      }
+    }
+    if (block.has_children) databases.push(...await discoverChildDatabases(block.id, depth + 1))
   }
-  return ids
+  return databases
+}
+
+function isWantedDatabase(database: NotionDatabase) {
+  const title = database.title.toLowerCase()
+  const propertyNames = Object.keys(database.properties ?? {}).map((name) => name.toLowerCase())
+  return title.includes('tv series') || title === 'film' || title.includes('new database') || propertyNames.includes('status anime') || propertyNames.includes('rating mal')
 }
 
 async function notionPages() {
-  const databaseId = process.env.NOTION_DATABASE_ID
-  if (!databaseId || !process.env.NOTION_TOKEN) return []
-  const directFilms = await queryDatabase(databaseId)
-  if (directFilms.length) return directFilms
-  const childDatabaseIds = await discoverChildDatabases(databaseId)
-  const childFilms = await Promise.all(childDatabaseIds.map(queryDatabase))
-  return childFilms.flat()
+  const rootId = process.env.NOTION_DATABASE_ID
+  if (!rootId || !process.env.NOTION_TOKEN) return []
+  const databases = (await discoverChildDatabases(rootId)).filter(isWantedDatabase)
+  const preferred = databases.filter((database) => /total anime|new database|tv series|film/i.test(database.title))
+  const unique = [...new Map((preferred.length ? preferred : databases).map((database) => [database.id, database])).values()]
+  const grouped = await Promise.all(unique.map(queryDatabase))
+  return grouped.flat()
 }
 
 async function enrichFilm(film: Film): Promise<Film> {
@@ -88,18 +103,16 @@ async function enrichFilm(film: Film): Promise<Film> {
       const response = await fetch(`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(film.title)}&limit=1`, { next: { revalidate: 3600 } })
       const data = await response.json() as { data?: Array<{ score?: number; episodes?: number; status?: string; genres?: Array<{ name?: string }> }> }
       const match = data.data?.[0]
-      return { ...film, malRating: match?.score != null ? String(match.score) : '—', progress: film.progress !== '—' ? film.progress : `${match?.status ?? '—'} · ${match?.episodes ?? '—'} eps`, genres: film.genres.length ? film.genres : (match?.genres ?? []).map((genre) => genre.name ?? '').filter(Boolean), source: 'MAL / Jikan' }
+      return { ...film, malRating: film.malRating !== '—' ? film.malRating : match?.score != null ? String(match.score) : '—', progress: film.progress !== '—' ? film.progress : `${match?.status ?? '—'} · ${match?.episodes ?? '—'} eps`, genres: film.genres.length ? film.genres : (match?.genres ?? []).map((genre) => genre.name ?? '').filter(Boolean), source: 'MAL / Jikan' }
     }
     const key = process.env.TMDB_API_KEY
     if (!key) return film
     const endpoint = film.type === 'Film' ? 'movie' : 'tv'
     const response = await fetch(`https://api.themoviedb.org/3/search/${endpoint}?api_key=${encodeURIComponent(key)}&query=${encodeURIComponent(film.title)}&language=en-US`, { next: { revalidate: 3600 } })
-    const data = await response.json() as { results?: Array<{ vote_average?: number; poster_path?: string; genre_ids?: number[] }> }
+    const data = await response.json() as { results?: Array<{ vote_average?: number; poster_path?: string }> }
     const match = data.results?.[0]
-    return { ...film, generalRating: match?.vote_average != null ? String(match.vote_average.toFixed(1)) : '—', poster: match?.poster_path ? `https://image.tmdb.org/t/p/w342${match.poster_path}` : undefined, source: 'TMDB' }
-  } catch {
-    return film
-  }
+    return { ...film, generalRating: film.generalRating ?? (match?.vote_average != null ? String(match.vote_average.toFixed(1)) : '—'), poster: match?.poster_path ? `https://image.tmdb.org/t/p/w342${match.poster_path}` : undefined, source: 'TMDB' }
+  } catch { return film }
 }
 
 export async function getSyncedFilms() {
@@ -107,7 +120,5 @@ export async function getSyncedFilms() {
     const liveFilms = await notionPages()
     if (!liveFilms.length) return { films: fallbackFilms, synced: false }
     return { films: await Promise.all(liveFilms.map(enrichFilm)), synced: true }
-  } catch {
-    return { films: fallbackFilms, synced: false }
-  }
+  } catch { return { films: fallbackFilms, synced: false } }
 }

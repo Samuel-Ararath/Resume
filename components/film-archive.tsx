@@ -21,8 +21,8 @@ function FilmTable({ title, films }: { title: string; films: Film[] }) {
         <table className="film-table">
           <thead><tr><th>Title</th><th>Rating pribadi</th><th>Status</th><th>Genre</th><th>Rating umum</th></tr></thead>
           <tbody>
-            {films.map((film) => (
-              <tr key={`${title}-${film.title}`}>
+            {films.map((film, index) => (
+              <tr key={`${title}-${film.title}-${index}`}>
                 <th scope="row">{film.title}</th>
                 <td>{film.rating}</td>
                 <td><span className={`status-pill status-${film.watchStatus.replaceAll(' ', '-').toLowerCase()}`}>{film.watchStatus}</span></td>
