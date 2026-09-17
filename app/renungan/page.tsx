@@ -1,4 +1,10 @@
 import { PageChrome, PageIntro } from '@/components/page-chrome'
-import { reflections } from '@/lib/content'
+import { ReflectionBrowser } from '@/components/reflection-browser'
+import { getSyncedReflections, notionReflectionsUrl } from '@/lib/reflection-sync'
 
-export default function ReflectionsPage() { return <PageChrome><main><PageIntro label="04 / Reflections" title={<>Some thoughts <em>in passing.</em></>} description="Notes for slower days: short reflections on faith, work, process, and the things that often go unnoticed." /><section className="section-shell page-section"><div className="reflection-list">{reflections.map((item) => <article className="reflection-card" key={item.number}><span>{item.number}</span><div><p className="card-meta">{item.theme}</p><h2>{item.title}</h2><p>{item.excerpt}</p></div></article>)}</div></section></main></PageChrome> }
+export const metadata = { title: 'Renungan — Samuel.', description: 'Kumpulan renungan dan catatan iman personal yang tersinkronisasi dari Notion.' }
+
+export default async function ReflectionsPage() {
+  const { reflections, synced } = await getSyncedReflections()
+  return <PageChrome><main><PageIntro label="04 / Reflections" title={<>Some thoughts <em>in passing.</em></>} description="Ruang tenang untuk membaca ulang iman, proses, dan hal-hal yang sering luput diperhatikan." /><section className="section-shell page-section"><div className="reflection-heading"><div><p className="section-label">Santapan rohani</p><h2>Catatan untuk hari-hari yang lebih hening.</h2></div><a className="text-link" href={notionReflectionsUrl} target="_blank" rel="noreferrer">Buka database Notion <span aria-hidden="true">↗</span></a></div><ReflectionBrowser entries={reflections} synced={synced} /></section></main></PageChrome>
+}
