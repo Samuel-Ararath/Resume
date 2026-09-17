@@ -7,6 +7,12 @@ const views = ['Tabel', 'Upcoming', 'Katalog', 'Semua'] as const
 const types = ['Semua', 'Anime', 'TV Series', 'Film'] as const
 const databaseTypes = ['Anime', 'TV Series', 'Film'] as const
 
+function RatingValue({ value }: { value: string }) {
+  const stars = value.match(/⭐️?/g)?.filter(Boolean) ?? []
+  if (!stars.length) return <span>{value}</span>
+  return <span className="rating-stars" aria-label={`${stars.length} dari 5 bintang`}>{stars.join('')}</span>
+}
+
 function FilmTable({ title, films }: { title: string; films: Film[] }) {
   return (
     <section className="film-database-panel" aria-labelledby={`film-panel-${title.toLowerCase().replaceAll(' ', '-')}`}>
@@ -24,9 +30,9 @@ function FilmTable({ title, films }: { title: string; films: Film[] }) {
             {films.map((film, index) => (
               <tr key={`${title}-${film.title}-${index}`}>
                 <th scope="row">{film.title}</th>
-                <td>{film.rating}</td>
+                <td><RatingValue value={film.rating} /></td>
                 <td><span className={`status-pill status-${film.watchStatus.replaceAll(' ', '-').toLowerCase()}`}>{film.watchStatus}</span></td>
-                <td><div className="genre-list">{film.genres.slice(0, 2).map((genre) => <span key={genre}>{genre}</span>)}</div></td>
+                <td><div className="genre-list">{film.genres.map((genre) => <span key={genre}>{genre}</span>)}</div></td>
                 <td>{film.generalRating ?? film.malRating}{film.generalRating ? ' TMDB' : film.malRating !== '—' ? ' MAL' : ''}</td>
               </tr>
             ))}
