@@ -10,6 +10,7 @@ function plain(property?: NotionProperty) {
   if (!property) return ''
   if (property.title) return property.title.map((item) => item.plain_text ?? '').join('').trim()
   if (property.rich_text) return property.rich_text.map((item) => item.plain_text ?? '').join('').trim()
+  if (property.multi_select) return property.multi_select.map((item) => item.name ?? '').filter(Boolean).join(', ').trim()
   return property.select?.name?.trim() ?? property.status?.name?.trim() ?? ''
 }
 
@@ -40,7 +41,8 @@ function toFilm(page: NotionPage, databaseTitle: string): Film | null {
   if (!title) return null
   const type = asType(databaseTitle)
   const rating = propertyValue(properties, ['valutation', 'valuation', 'rating pribadi', 'personal rating', 'my rating'])
-  const genres = findProperty(properties, ['Genre', 'Genres'])?.multi_select?.map((item) => item.name?.trim() ?? '').filter(Boolean) ?? []
+  const genreProperty = findProperty(properties, ['Genre', 'Genres'])
+  const genres = genreProperty?.multi_select?.map((item) => item.name?.trim() ?? '').filter(Boolean) ?? plain(genreProperty).split(',').map((genre) => genre.trim()).filter(Boolean)
   const episodes = propertyValue(properties, ['Final episodes', 'Current episodes', 'Episodes'])
   const finalStatus = propertyValue(properties, ['Final status', 'Status Anime'])
   const progress = [finalStatus, episodes ? `${episodes} eps` : ''].filter(Boolean).join(' · ')
