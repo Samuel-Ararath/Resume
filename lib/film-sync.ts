@@ -38,7 +38,7 @@ function asType(databaseTitle: string): Film['type'] {
 function toFilm(page: NotionPage, databaseTitle: string): Film | null {
   const properties = page.properties ?? {}
   const title = propertyValue(properties, ['Title', 'Name', 'Judul'])
-  if (!title) return null
+  if (!title || /^season\s*\d+$/i.test(title.trim())) return null
   const type = asType(databaseTitle)
   const rating = propertyValue(properties, ['valutation', 'valuation', 'rating pribadi', 'personal rating', 'my rating'])
   const genreProperty = findProperty(properties, ['Genre', 'Genres'])
