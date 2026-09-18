@@ -3,8 +3,8 @@ import type { ReactNode } from 'react'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Samuel — Personal Notes & Work',
-  description: 'A considered collection of work, books, films, and reflections by Samuel Simanjuntak.',
+  title: 'SYCESIMA — Samuel Simanjuntak',
+  description: 'Personal academic homepage and knowledge archive of Samuel Simanjuntak: industrial engineering, systems, books, films, and reflections.',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
