@@ -35,6 +35,12 @@
 .film-database { width:calc(100% + clamp(48px,8vw,156px)); margin-left:calc(-1 * clamp(24px,4vw,78px)); padding-inline:clamp(24px,4vw,78px); }
 @media (max-width:900px) { .film-database { width:calc(100% + 56px); margin-left:-28px; padding-inline:28px; } }
 @media (max-width:680px) { .film-database { width:calc(100% + 36px); margin-left:-18px; padding-inline:18px; } }
+
+/* About is a full-viewport editorial field, including the tinted edges. */
+main:has(.about-hero) { width:100%; max-width:none; overflow:hidden; background:linear-gradient(180deg,rgba(177,179,225,.22),rgba(153,207,220,.18) 44%,rgba(244,218,192,.28) 78%,rgba(229,157,169,.22)); }
+main:has(.about-hero) .section-shell { width:100vw; max-width:none; margin-left:0; margin-right:0; padding-left:clamp(28px,4vw,78px); padding-right:clamp(28px,4vw,78px); }
+main:has(.about-hero) .about-hero, main:has(.about-hero) .about-introduction, main:has(.about-hero) .about-thoughts, main:has(.about-hero) .about-archive, main:has(.about-hero) .about-closing { width:100vw; }
+@media (max-width:680px) { main:has(.about-hero) .section-shell { width:100vw; padding-left:24px; padding-right:24px; } }
 @media print { .site-header,.site-footer,.button,.text-link { display:none!important; } body { background:#fff; color:#000; } .section-shell { width:100%; } }
 
 /* Atmosphere-first composition: the home page lives inside one continuous dawn sky. */
