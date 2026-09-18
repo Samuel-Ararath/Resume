@@ -7,6 +7,9 @@ const links = [
   { href: '/', label: 'Home' },
   { href: '/resume', label: 'Resume' },
   { href: '/about', label: 'About Me' },
+  { href: '/buku', label: 'Books' },
+  { href: '/film', label: 'Film' },
+  { href: '/renungan', label: 'Renungan' },
   { href: '/contact', label: 'Contact' },
 ]
 
