@@ -86,6 +86,23 @@ main:has(.about-hero) .about-hero, main:has(.about-hero) .about-introduction, ma
 .project-content p:not(.project-status) { max-width:650px; margin:0; color:var(--muted); font-size:13px; }
 .project-status { margin:0; color:var(--violet); font-family:var(--mono); font-size:10px; text-transform:uppercase; }
 .project-type { align-self:end; min-width:150px; color:var(--muted); font-family:var(--mono); font-size:10px; text-align:right; }
+.project-groups { margin-top:4px; }
+.project-group { padding:42px 0 55px; border-top:1px solid var(--line); }
+.project-group-heading { display:flex; align-items:end; justify-content:space-between; gap:8vw; margin-bottom:24px; }
+.project-group-heading>div { display:flex; align-items:baseline; gap:16px; }
+.project-group-number { color:var(--blue); font-family:var(--mono); font-size:10px; }
+.project-group-heading h2 { margin:0; font-size:clamp(34px,4vw,54px); }
+.project-group-heading p { max-width:300px; margin:0; color:var(--muted); font-size:12px; }
+.project-table-wrap { overflow-x:auto; border-top:1px solid var(--line); background:rgba(247,238,230,.22); }
+.project-table { width:100%; min-width:720px; border-collapse:collapse; font-size:12px; }
+.project-table th,.project-table td { padding:16px 14px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+.project-table thead th { color:var(--muted); font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.08em; text-transform:uppercase; }
+.project-table thead th:first-child,.project-table tbody th:first-child { padding-left:18px; }
+.project-table tbody th { width:58%; color:var(--ink); font-family:var(--serif); font-size:21px; font-weight:400; line-height:1.15; }
+.project-table tbody td { color:var(--muted); }
+.project-table tbody tr { transition:background .2s ease; }
+.project-table tbody tr:hover { background:rgba(142,203,214,.12); }
+.project-progress { display:inline-flex; border:1px solid rgba(81,75,145,.24); border-radius:999px; padding:4px 9px; color:var(--violet); font-family:var(--mono); font-size:9px; white-space:nowrap; }
 @media (max-width:680px) {
   .project-section { padding-top:55px; padding-bottom:95px; }
   .project-intro { display:block; padding-bottom:40px; }
@@ -94,6 +111,11 @@ main:has(.about-hero) .about-hero, main:has(.about-hero) .about-introduction, ma
   .project-meta { flex-direction:row; justify-content:space-between; margin-bottom:25px; }
   .project-content { display:block; }
   .project-type { display:block; margin-top:25px; text-align:left; }
+  .project-group { padding:32px 0 42px; }
+  .project-group-heading { display:block; }
+  .project-group-heading>div { justify-content:space-between; }
+  .project-group-heading p { margin-top:16px; }
+  .project-table { min-width:650px; }
 }
 
 /* Resume logos stay visually subordinate to the role and organization headings. */
