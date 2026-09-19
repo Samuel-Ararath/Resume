@@ -48,22 +48,22 @@ main:has(.about-hero) .about-hero, main:has(.about-hero) .about-introduction, ma
 
 /* Home: a quiet watercolor field inspired by the supplied landscape reference. */
 .home-page { min-height:100vh; overflow:hidden; background:#f2d6c0 url('/home-watercolor.png') center top / cover fixed no-repeat; }
-.home-page::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; background:linear-gradient(180deg,rgba(107,139,190,.18),rgba(255,232,207,.04) 37%,rgba(235,166,165,.16) 76%,rgba(111,91,143,.18)); mix-blend-mode:multiply; }
+.home-page::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; background:linear-gradient(180deg,rgba(52,68,116,.34),rgba(255,220,193,.12) 37%,rgba(191,105,119,.24) 76%,rgba(65,48,99,.32)); mix-blend-mode:multiply; }
 .home-page > * { position:relative; z-index:1; }
 .home-page .site-header { background:rgba(247,238,230,.52); border-color:rgba(63,61,79,.1); }
 .home-page .hero { display:flex; min-height:calc(100svh - 76px); align-items:center; padding-top:clamp(74px,10vh,130px); padding-bottom:clamp(90px,14vh,180px); }
 .home-page .hero-intro { max-width:790px; padding-bottom:5vh; }
-.home-page .hero h1 { max-width:780px; color:#282738; font-size:clamp(64px,9vw,132px); letter-spacing:-.075em; line-height:.87; text-shadow:0 2px 18px rgba(255,239,218,.5); }
-.home-page .hero h1 em { color:#514b91; }
-.home-page .hero-copy { max-width:395px; color:#4e4c59; }
-.home-page .hero .eyebrow,.home-page .manifesto-label,.home-page .section-label { color:#514b91; }
+.home-page .hero h1 { max-width:780px; color:#211f32; font-size:clamp(64px,9vw,132px); letter-spacing:-.075em; line-height:.87; text-shadow:0 2px 18px rgba(255,239,218,.42); }
+.home-page .hero h1 em { color:#403978; }
+.home-page .hero-copy { max-width:395px; color:#363440; }
+.home-page .hero .eyebrow,.home-page .manifesto-label,.home-page .section-label { color:#403978; }
 .home-page .hero-aside { bottom:clamp(90px,14vh,180px); }
 .home-page .portrait-frame { background:linear-gradient(145deg,#596cae,#9ec8d3 45%,#f1b093 77%,#bd86a6); box-shadow:18px 26px 60px rgba(74,70,119,.22); }
 .home-page .manifesto,.home-page .home-note { background:rgba(247,238,230,.16); backdrop-filter:blur(2px); }
-.home-page .manifesto h2,.home-page .home-note-layout h2 { color:#302d45; }
-.home-page .manifesto h2 em,.home-page .home-note-layout h2 em { color:#514b91; }
-.home-page .manifesto-copy p,.home-page .home-note-layout p { color:#5d5861; }
-.home-page .site-footer { color:#514b91; }
+.home-page .manifesto h2,.home-page .home-note-layout h2 { color:#29263b; }
+.home-page .manifesto h2 em,.home-page .home-note-layout h2 em { color:#403978; }
+.home-page .manifesto-copy p,.home-page .home-note-layout p { color:#49444d; }
+.home-page .site-footer { color:#403978; }
 @media (max-width:680px) {
   .home-page { background-position:center top; background-attachment:scroll; }
   .home-page .hero { min-height:calc(100svh - 66px); padding-top:70px; padding-bottom:90px; }
