@@ -1,0 +1,45 @@
+import Link from 'next/link'
+import type { SkillPage } from '@/lib/skill-pages'
+
+function EquationMath({ label }: { label: string }) {
+  if (label === 'Utilization') return <math aria-label="Utilization equals actual output divided by design capacity"><mrow><mi>Utilization</mi><mo>=</mo><mfrac><mtext>Actual Output</mtext><mtext>Design Capacity</mtext></mfrac></mrow></math>
+  if (label === 'Little’s Law') return <math aria-label="WIP equals throughput times flow time"><mrow><mi>WIP</mi><mo>=</mo><mi>Throughput</mi><mo>×</mo><mi>Flow&nbsp;Time</mi></mrow></math>
+  if (label === 'OEE') return <math aria-label="OEE equals availability times performance times quality"><mrow><mi>OEE</mi><mo>=</mo><mi>Availability</mi><mo>×</mo><mi>Performance</mi><mo>×</mo><mi>Quality</mi></mrow></math>
+  if (label === 'FMEA priority number') return <math aria-label="RPN equals severity times occurrence times detection"><mrow><mi>RPN</mi><mo>=</mo><mi>Severity</mi><mo>×</mo><mi>Occurrence</mi><mo>×</mo><mi>Detection</mi></mrow></math>
+  if (label === 'Availability') return <math aria-label="Availability equals MTBF divided by MTBF plus MTTR"><mrow><mi>Availability</mi><mo>=</mo><mfrac><mi>MTBF</mi><mrow><mi>MTBF</mi><mo>+</mo><mi>MTTR</mi></mrow></mfrac></mrow></math>
+  if (label === 'Break-even quantity') return <math aria-label="Break-even quantity equals fixed cost divided by price minus variable cost per unit"><mrow><msub><mi>Q</mi><mi>BE</mi></msub><mo>=</mo><mfrac><mi>Fixed&nbsp;Cost</mi><mrow><mi>Price</mi><mo>−</mo><mi>Variable&nbsp;Cost&nbsp;per&nbsp;Unit</mi></mrow></mfrac></mrow></math>
+  if (label === 'Net present value') return <math aria-label="Net present value equals the sum of discounted cash flows minus initial investment"><mrow><mi>NPV</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><mi>n</mi></munderover><mfrac><msub><mi>CF</mi><mi>t</mi></msub><msup><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi>r</mi><mo>)</mo></mrow><mi>t</mi></msup></mfrac><mo>−</mo><mi>Initial&nbsp;Investment</mi></mrow></math>
+  if (label === 'Process capability') return <math aria-label="Cp equals upper specification limit minus lower specification limit divided by six sigma"><mrow><msub><mi>C</mi><mi>p</mi></msub><mo>=</mo><mfrac><mrow><mi>USL</mi><mo>−</mo><mi>LSL</mi></mrow><mrow><mn>6</mn><mi>σ</mi></mrow></mfrac></mrow></math>
+  if (label === 'Centered capability') return <math aria-label="Cpk equals the minimum of upper and lower capability indices"><mrow><msub><mi>C</mi><mi>pk</mi></msub><mo>=</mo><mi>min</mi><mo>[</mo><mfrac><mrow><mi>USL</mi><mo>−</mo><mi>μ</mi></mrow><mrow><mn>3</mn><mi>σ</mi></mrow></mfrac><mo>,</mo><mfrac><mrow><mi>μ</mi><mo>−</mo><mi>LSL</mi></mrow><mrow><mn>3</mn><mi>σ</mi></mrow></mfrac><mo>]</mo></mrow></math>
+  if (label === 'Productivity') return <math aria-label="Productivity equals useful output divided by resource input"><mrow><mi>Productivity</mi><mo>=</mo><mfrac><mi>Useful&nbsp;Output</mi><mi>Resource&nbsp;Input</mi></mfrac></mrow></math>
+  if (label === 'Material balance') return <math aria-label="Inputs equal useful outputs plus emissions and residuals"><mrow><mi>Inputs</mi><mo>=</mo><mi>Useful&nbsp;Outputs</mi><mo>+</mo><mi>Emissions</mi><mo>+</mo><mi>Residuals</mi></mrow></math>
+  if (label === 'Impact intensity') return <math aria-label="Impact intensity equals total impact divided by functional unit"><mrow><mi>Impact&nbsp;Intensity</mi><mo>=</mo><mfrac><mi>Total&nbsp;Impact</mi><mi>Functional&nbsp;Unit</mi></mfrac></mrow></math>
+  if (label === 'Cost productivity') return <math aria-label="Cost productivity equals output value divided by total cost"><mrow><mi>Cost&nbsp;Productivity</mi><mo>=</mo><mfrac><mi>Output&nbsp;Value</mi><mi>Total&nbsp;Cost</mi></mfrac></mrow></math>
+  return <math aria-label={label}><mrow><mi>TCO</mi><mo>=</mo><mi>Acquisition</mi><mo>+</mo><mi>Operating</mi><mo>+</mo><mi>Maintenance</mi><mo>+</mo><mi>Downtime</mi><mo>+</mo><mi>Disposal</mi></mrow></math>
+}
+
+function SkillFigure({ slug }: { slug: string }) {
+  const labels = slug === 'operational-management' ? ['INPUTS', 'TRANSFORMATION', 'OUTPUTS'] : slug === 'risk-performance-management' ? ['CAUSES', 'EVENT', 'CONSEQUENCES'] : slug === 'green-industry' ? ['MATERIALS', 'USE', 'RECOVERY'] : slug === 'technology-valuation-management' ? ['ACQUIRE', 'OPERATE', 'RETIRE'] : slug === 'quality-efficiency-improvement' ? ['MEASURE', 'ANALYSE', 'IMPROVE'] : slug === 'industrial-economics-finance' ? ['COST', 'VALUE', 'DECISION'] : ['PLAN', 'ORGANIZE', 'CONTROL']
+  return <figure className="skill-figure" aria-label={`${labels.join(', ')} conceptual model`}><svg viewBox="0 0 760 150" role="img"><line x1="170" y1="75" x2="270" y2="75" /><line x1="490" y1="75" x2="590" y2="75" /><circle cx="120" cy="75" r="48" /><rect x="270" y="27" width="220" height="96" rx="2" /><circle cx="640" cy="75" r="48" /><text x="120" y="80" textAnchor="middle">{labels[0]}</text><text x="380" y="80" textAnchor="middle">{labels[1]}</text><text x="640" y="80" textAnchor="middle">{labels[2]}</text><path d="M250 69l20 6-20 6M570 69l20 6-20 6" /></svg><figcaption>Figure 1. A conceptual model for {labels.join(' → ').toLowerCase()}. The diagram is explanatory rather than empirical.</figcaption></figure>
+}
+
+export function SkillPageView({ page }: { page: SkillPage }) {
+  const sections = page.sections.filter((section) => !section.title.startsWith('My '))
+  return <main className="skill-page">
+    <div className="skill-reading-shell">
+      <nav className="skill-breadcrumb" aria-label="Breadcrumb"><Link href="/resume">Resume</Link><span>→</span><Link href="/resume#top-skills">Top Skills</Link><span>→</span><span>{page.title}</span></nav>
+      <header className="skill-hero"><p className="skill-kicker">Academic module · {page.number}</p><h1>{page.title}</h1><p className="skill-subtitle">{page.subtitle}</p><p className="skill-lede">{page.introduction}</p><div className="skill-objectives"><strong>Learning objectives</strong><span>Define the field, explain its principal models, identify assumptions and limitations, and interpret its use in industrial systems.</span></div></header>
+      <div className="skill-layout">
+        <aside className="skill-toc"><p>Contents</p><ol>{sections.map((section, index) => <li key={section.title}><a href={`#section-${index + 1}`}>{String(index + 1).padStart(2, '0')} {section.title}</a></li>)}<li><a href="#limitations">Interpretation &amp; limitations</a></li>{page.equations && <li><a href="#equations">Models &amp; equations</a></li>}<li><a href="#references">References</a></li></ol></aside>
+        <article className="skill-article"><SkillFigure slug={page.slug} />
+          {sections.map((section, index) => <section className="skill-section" id={`section-${index + 1}`} key={section.title}><p className="skill-section-number">{String(index + 1).padStart(2, '0')}</p><div><h2>{section.title}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}{section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}</div></section>)}
+          <section className="skill-section" id="limitations"><p className="skill-section-number">⌁</p><div><h2>Interpretation and limitations</h2><p>No model represents an industrial system completely. Results depend on the unit of analysis, data quality, time horizon, boundary, and assumptions. A responsible analysis states those assumptions, tests sensitivity where possible, and distinguishes a diagnostic indicator from a causal explanation.</p><p>Quantitative outputs should therefore be read with operational context. A high utilization rate may conceal queues and fatigue; a high capability index may coexist with the wrong specification; a favorable financial result may depend on a discount rate or residual-value assumption. The analytical method is strongest when its limitations are made explicit.</p></div></section>
+          {page.equations && <section className="skill-section" id="equations"><p className="skill-section-number">∑</p><div><h2>Models &amp; equations</h2><div className="equation-list">{page.equations.map((equation) => <div className="equation" key={equation.label}><p>{equation.label}</p><strong><EquationMath label={equation.label} /></strong><code>{equation.formula}</code><span>{equation.note}</span></div>)}</div></div></section>}
+          {page.tables?.map((table) => <section className="skill-table-section" key={table.heading}><h2>{table.heading}</h2><div className="skill-table-wrap"><table><thead><tr>{table.columns.map((column) => <th key={column}>{column}</th>)}</tr></thead><tbody>{table.rows.map((row) => <tr key={row[0]}>{row.map((cell) => <td key={cell}>{cell}</td>)}</tr>)}</tbody></table></div></section>)}
+          <section className="skill-references" id="references"><p className="skill-section-number">R</p><div><h2>References</h2><ol>{page.references.map((reference) => <li key={reference}>{reference}</li>)}</ol></div></section>
+        </article>
+      </div>
+      <div className="skill-next"><Link href="/resume">← Back to Resume</Link></div>
+    </div>
+  </main>
+}
