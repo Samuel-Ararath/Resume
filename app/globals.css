@@ -71,6 +71,31 @@ main:has(.about-hero) .about-hero, main:has(.about-hero) .about-introduction, ma
   .home-page .hero-aside { bottom:auto; }
 }
 
+/* Projects: the same restrained, editorial rhythm as Resume. */
+.project-section { padding-top:76px; padding-bottom:150px; }
+.project-intro { display:flex; align-items:end; justify-content:space-between; gap:10vw; padding-bottom:55px; }
+.project-intro h2 { max-width:700px; margin:10px 0 0; font-size:clamp(44px,6vw,78px); }
+.project-intro .muted-copy { max-width:360px; margin:0 0 4px; }
+.project-list { border-top:1px solid var(--line); }
+.project-item { display:grid; grid-template-columns:220px minmax(0,1fr); gap:8vw; padding:34px 0 38px; border-bottom:1px solid var(--line); transition:padding-left .25s ease, background .25s ease; }
+.project-item:hover { padding-left:18px; background:linear-gradient(90deg,rgba(12,203,209,.07),transparent 70%); }
+.project-meta { display:flex; flex-direction:column; gap:8px; color:var(--violet); font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; }
+.project-meta span:first-child { color:var(--blue); }
+.project-content { display:flex; justify-content:space-between; gap:40px; }
+.project-content h2 { max-width:650px; margin:4px 0 12px; font-size:clamp(30px,4vw,52px); }
+.project-content p:not(.project-status) { max-width:650px; margin:0; color:var(--muted); font-size:13px; }
+.project-status { margin:0; color:var(--violet); font-family:var(--mono); font-size:10px; text-transform:uppercase; }
+.project-type { align-self:end; min-width:150px; color:var(--muted); font-family:var(--mono); font-size:10px; text-align:right; }
+@media (max-width:680px) {
+  .project-section { padding-top:55px; padding-bottom:95px; }
+  .project-intro { display:block; padding-bottom:40px; }
+  .project-intro .muted-copy { margin-top:28px; }
+  .project-item { display:block; padding:25px 0 30px; }
+  .project-meta { flex-direction:row; justify-content:space-between; margin-bottom:25px; }
+  .project-content { display:block; }
+  .project-type { display:block; margin-top:25px; text-align:left; }
+}
+
 /* Resume logos stay visually subordinate to the role and organization headings. */
 .detail-content { grid-template-columns:52px minmax(0,1fr); gap:14px; }
 .resume-logo { width:52px; height:52px; flex-basis:52px; }
