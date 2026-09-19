@@ -46,6 +46,10 @@ main:has(.about-hero) .about-hero, main:has(.about-hero) .about-introduction, ma
 @media (max-width:680px) { main:has(.about-hero) .section-shell { width:100vw; padding-left:24px; padding-right:24px; } }
 @media print { .site-header,.site-footer,.button,.text-link { display:none!important; } body { background:#fff; color:#000; } .section-shell { width:100%; } }
 
+/* Resume logos stay visually subordinate to the role and organization headings. */
+.detail-content { grid-template-columns:52px minmax(0,1fr); gap:14px; }
+.resume-logo { width:52px; height:52px; flex-basis:52px; }
+
 /* Atmosphere-first composition: the home page lives inside one continuous dawn sky. */
 body:has(.hero) .site-header { background:rgba(111,105,188,.18); border-color:rgba(255,255,255,.28); box-shadow:0 8px 28px rgba(61,54,125,.08); }
 body:has(.hero) .site-header::after { background:linear-gradient(90deg,transparent,rgba(255,242,216,.72),rgba(235,139,171,.72),transparent); opacity:.72; }
