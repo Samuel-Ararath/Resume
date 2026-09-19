@@ -19,10 +19,9 @@ function slugify(value: string) {
 export async function getSyncedReflections(): Promise<{ reflections: ReflectionEntry[]; synced: boolean }> {
   const { data, error } = await supabase
     .from('reflections')
-    .select('id, title, slug, excerpt, body, theme, topics, tags, author, date, source_url')
-    .order('created_at', { ascending: true })
+    .select('*')
 
-  if (error || !data) return { reflections: [], synced: true }
+  if (error || !data) return { reflections: [], synced: false }
 
   const reflections: ReflectionEntry[] = data.map((row) => ({
     number: row.date ? new Date(row.date).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) : '—',

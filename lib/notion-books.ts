@@ -11,11 +11,10 @@ export type NotionBook = {
   url: string
 }
 
-export async function getNotionBooks(): Promise<NotionBook[]> {
+export async function getBooks(): Promise<NotionBook[]> {
   const { data, error } = await supabase
     .from('media_books')
-    .select('id, title, author, category, status, genres, progress, url')
-    .order('created_at', { ascending: true })
+    .select('*')
 
   if (error || !data) return []
 
@@ -30,3 +29,7 @@ export async function getNotionBooks(): Promise<NotionBook[]> {
     url: row.url ?? '',
   }))
 }
+
+// Kept as an alias for existing imports while the archive moves away from its
+// old Notion-backed name.
+export const getNotionBooks = getBooks
