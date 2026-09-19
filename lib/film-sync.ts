@@ -4,10 +4,9 @@ import { supabase } from '@/lib/supabase-client'
 export async function getSyncedFilms(): Promise<{ films: Film[]; synced: boolean }> {
   const { data, error } = await supabase
     .from('media_movies')
-    .select('id, title, type, rating, watch_status, genres, progress, mal_rating, general_rating, poster, source')
-    .order('created_at', { ascending: true })
+    .select('*')
 
-  if (error || !data) return { films: [], synced: true }
+  if (error || !data) return { films: [], synced: false }
 
   const films: Film[] = data.map((row) => ({
     title: row.title,
