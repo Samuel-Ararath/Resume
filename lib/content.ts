@@ -4,7 +4,7 @@ export type Reflection = { number: string; title: string; excerpt: string; theme
 export type Experience = { company: string; role: string; period: string; location: string; description: string }
 
 export const linkedinUrl = 'https://www.linkedin.com/in/samuel-simanjuntak-b9b98b2b0/'
-export const notionFilmsUrl = 'https://app.notion.com/p/Anime-TV-Series-Film-2f176e13d86f8063bf59d0234d318095?source=copy_link'
+
 
 export const experiences: Experience[] = [
   { company: 'Lembaga Alkitab Indonesia', role: 'Production Planning Control', period: 'July 2026 – August 2026', location: 'Cibinong', description: 'Engaged directly on the shop floor to identify bottlenecks across the production line, analyze machinery performance using OEE, perform Life Cycle Cost analysis, and develop proposals to improve reliability and reduce downtime.' },
@@ -22,35 +22,10 @@ export const education = [
 export const skills = ['Preventive Maintenance', 'Life Cycle Cost Analysis', 'Asset Control & Monitoring']
 export const honors = ['Top 10 Finalist: Investment Competition EFFECT UNS 2024']
 
-export const books: Book[] = [
-  { title: 'Pilihan buku akan segera hadir', author: 'Daftar pribadi Samuel', note: 'Koleksi bacaan dan catatan personal akan ditambahkan setelah data final tersedia.', category: 'Curated list' },
-  { title: 'Sebuah ruang untuk ide', author: 'Catatan membaca', note: 'Setiap judul akan hadir dengan alasan mengapa buku itu layak dibaca.', category: 'Reading notes' },
-  { title: 'Membaca dengan perlahan', author: 'Prinsip kurasi', note: 'Buku yang tinggal lebih lama di kepala, bukan hanya yang selesai lebih cepat.', category: 'Perspective' },
-]
+export const books: Book[] = []
 
-export const films: Film[] = [
-  { title: '2.5-jigen no Ririsa', type: 'Anime', rating: '⭐️⭐️⭐️', watchStatus: 'Belum nonton', genres: ['Comedy', 'Ecchi', 'Harem', 'School', 'Shounen'], progress: 'Tamat · 12 eps', malRating: '6.6' },
-  { title: '3D Kanojo: Real Girl', type: 'Anime', rating: '⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Romance', 'School', 'Shoujo'], progress: 'Tamat · 24 eps', malRating: '7.1' },
-  { title: '5-toubun no Hanayome', type: 'Anime', rating: '⭐️⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Comedy', 'Harem', 'Romance', 'School', 'Shounen'], progress: 'Tamat · 24 eps', malRating: '7.6' },
-  { title: '86 (Eighty Six)', type: 'Anime', rating: '⭐️⭐️⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Drama', 'Mecha', 'Sci-Fi'], progress: 'Tamat · 23 eps', malRating: '8.4' },
-  { title: 'Absolute Duo', type: 'Anime', rating: '⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Ecchi', 'Harem', 'Romance', 'School', 'Supernatural'], progress: 'Tamat · 12 eps', malRating: '6.6' },
-  { title: 'Accel World', type: 'Anime', rating: '⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Game', 'Isekai', 'Romance', 'School', 'Sci-Fi', 'Shounen'], progress: 'Tamat · 24 eps', malRating: '7.1' },
-  { title: 'Ahiru no Sora', type: 'Anime', rating: '⭐️', watchStatus: 'Sudah selesai', genres: ['Comedy', 'Drama', 'School', 'Shounen', 'Sports'], progress: 'Tamat · 50 eps', malRating: '6.9' },
-  { title: 'Akagami no Shirayuki-hime', type: 'Anime', rating: '⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Drama', 'Fantasy', 'Historical', 'Romance', 'Shoujo'], progress: 'Tamat · 24 eps', malRating: '7.9' },
-  { title: 'Akame ga Kill', type: 'Anime', rating: '⭐️⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Adventure', 'Drama', 'Fantasy', 'Shounen'], progress: 'Tamat · 24 eps', malRating: '7.5' },
-  { title: 'Akatsuki no Yona', type: 'Anime', rating: '⭐️⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Comedy', 'Fantasy', 'Romance', 'Shoujo'], progress: 'Tamat · 24 eps', malRating: '8.0' },
-  { title: 'Aldnoah Zero', type: 'Anime', rating: '⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Mecha', 'Sci-Fi'], progress: 'Tamat · 24 eps', malRating: '7.0' },
-  { title: 'Amagami SS', type: 'Anime', rating: '⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Comedy', 'Romance', 'School', 'Slice of Life'], progress: 'Tamat · 24 eps', malRating: '7.2' },
-  { title: 'Amagi Brilliant Park', type: 'Anime', rating: '⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Comedy', 'Drama', 'Fantasy', 'Magic'], progress: 'Tamat · 13 eps', malRating: '7.1' },
-  { title: 'Angel Beats!', type: 'Anime', rating: '⭐️⭐️⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Comedy', 'Drama', 'School', 'Supernatural'], progress: 'Tamat · 13 eps', malRating: '8.0' },
-  { title: 'Ao Ashi', type: 'Anime', rating: '⭐️⭐️', watchStatus: 'Belum nonton', genres: ['Seinen', 'Sports'], progress: 'Tamat · 24 eps', malRating: '7.7' },
-  { title: 'Ao no Exorcist', type: 'Anime', rating: '⭐️⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Demon', 'Fantasy', 'Shounen', 'Supernatural'], progress: 'Tamat · 73 eps', malRating: '7.5' },
-  { title: 'Arifureta Shokugyou de Sekai Saikyou', type: 'Anime', rating: '⭐️⭐️⭐️', watchStatus: 'Sudah selesai', genres: ['Action', 'Adventure', 'Fantasy', 'Harem', 'Isekai'], progress: 'Ongoing · 37 eps', malRating: '7.1' },
-]
+export const films: Film[] = []
 
-export const reflections: Reflection[] = [
-  { number: '01', title: 'Ruang untuk berpikir lebih jernih', excerpt: 'Renungan dan tulisan pendek akan hadir di sini—sebagai jeda kecil dari ritme yang terlalu cepat.', theme: 'Coming soon' },
-  { number: '02', title: 'Yang bertumbuh dalam diam', excerpt: 'Kumpulan catatan personal tentang iman, kerja, proses, dan hal-hal yang sering luput diperhatikan.', theme: 'Coming soon' },
-]
+export const reflections: Reflection[] = []
 
 export const principles = ['Curiosity over certainty', 'Depth over noise', 'Consistency over urgency']

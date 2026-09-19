@@ -1,5 +1,4 @@
 import { SiteHeader } from '@/components/site-header'
-import { books, films, reflections } from '@/lib/content'
 
 function SectionLabel({ children }: { children: string }) { return <p className="section-label"><span />{children}</p> }
 

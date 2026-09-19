@@ -39,6 +39,6 @@ export function Bookshelf({ books }: { books: NotionBook[] }) {
         </tr>)}</tbody>
       </table>
     </div>
-    {!filtered.length && <p className="empty-state">Tidak ada judul yang cocok di rak ini.</p>}
+    {!filtered.length && <p className="empty-state">{books.length === 0 ? 'Belum ada data.' : 'Tidak ada judul yang cocok di rak ini.'}</p>}
   </section>
 }
