@@ -17,8 +17,8 @@ const projectGroups: { label: string; description: string; projects: Project[] }
     { title: 'Analisis Kinerja dan Biaya Siklus Hidup Mesin Produksi dengan Pendekatan Overall Equipment Effectiveness dan Life Cycle Cost sebagai Dasar Strategi Pemeliharaan di Lembaga Alkitab Indonesia', start: '2026', progress: 'In progress' },
   ] },
   { label: 'Journal', description: 'Academic writing and collaborative inquiry in religion and society.', projects: [
-    { title: 'Persepsi Pemuda Kristen terhadap Realitas Kejahatan dan Mitos Modern: Pendekatan Sosiologi Agama dalam Menjawab Krisis Eksistensial', start: '2026', collaborator: 'Y. S. Lumban Gaol', progress: 'In progress' },
-    { title: 'Takut sebagai Instrumen Kendali: Evaluasi Mahasiswa Kristen terhadap Penggunaan Ayat Alkitab untuk Intimidasi Finansial dalam Konteks Pelayanan Gereja', start: '2026', progress: 'In progress' },
+    { title: 'Persepsi Pemuda Kristen terhadap Realitas Kejahatan dan Mitos Modern: Pendekatan Sosiologi Agama dalam Menjawab Krisis Eksistensial', start: '2026', collaborator: 'Y. S. L. Gaol', progress: 'In progress' },
+    { title: 'Takut sebagai Instrumen Kendali: Evaluasi Mahasiswa Kristen terhadap Penggunaan Ayat Alkitab untuk Intimidasi Finansial dalam Konteks Pelayanan Gereja', start: '2026', collaborator: 'F. X. Gunawan', progress: 'In progress' },
   ] },
 ]
 
