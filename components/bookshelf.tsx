@@ -25,12 +25,19 @@ export function Bookshelf({ books }: { books: NotionBook[] }) {
     <div className="bookshelf-tabs" role="tablist" aria-label="Filter koleksi">
       {tabs.map((tab) => <button key={tab} className={activeTab === tab ? 'is-selected' : ''} onClick={() => setActiveTab(tab)} role="tab" aria-selected={activeTab === tab}>{tab}</button>)}
     </div>
-    <div className="bookshelf-grid">
-      {filtered.map((book, index) => <a className="bookshelf-card" href={book.url} target="_blank" rel="noreferrer" key={book.id}>
-        <div className="bookshelf-card-top"><span>{String(index + 1).padStart(2, '0')}</span><span>{book.category}</span></div>
-        <div><h3>{book.title}</h3><p className="bookshelf-author">{book.author || 'Penulis tidak dicatat'}</p></div>
-        <div className="bookshelf-card-bottom"><span>{book.status || 'Belum dibaca'}</span><span>{book.progress || book.genres.slice(0, 2).join(' · ') || '—'}</span></div>
-      </a>)}
+    <div className="bookshelf-table-wrap">
+      <table className="bookshelf-table">
+        <caption className="sr-only">Daftar koleksi buku</caption>
+        <thead><tr><th scope="col">Judul</th><th scope="col">Penulis</th><th scope="col">Genre</th><th scope="col">Status</th><th scope="col">Progress</th><th scope="col"><span className="sr-only">Buka</span></th></tr></thead>
+        <tbody>{filtered.map((book, index) => <tr key={book.id}>
+          <td><a className="table-title" href={book.url} target="_blank" rel="noreferrer"><span className="table-index">{String(index + 1).padStart(2, '0')}</span><strong>{book.title}</strong></a></td>
+          <td>{book.author || '—'}</td>
+          <td><span className="table-genres">{book.genres.slice(0, 2).join(' · ') || '—'}</span></td>
+          <td><span className="table-status">{book.status || 'Belum dibaca'}</span></td>
+          <td>{book.progress || '—'}</td>
+          <td><a className="table-arrow" href={book.url} target="_blank" rel="noreferrer" aria-label={`Buka ${book.title}`}>↗</a></td>
+        </tr>)}</tbody>
+      </table>
     </div>
     {!filtered.length && <p className="empty-state">Tidak ada judul yang cocok di rak ini.</p>}
   </section>
