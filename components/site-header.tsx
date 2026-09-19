@@ -19,7 +19,7 @@ export function SiteHeader() {
     <header className="site-header">
       <a className="wordmark" href="/" aria-label="Samuel, kembali ke Home">
         <span className="wordmark-mark">S</span>
-        <span>Samuel<span className="wordmark-dot">.</span></span>
+        <span>Samuel<span className="wordmark-dot">.</span><small>Academic portfolio</small></span>
       </a>
       <nav className="desktop-nav" aria-label="Navigasi utama">
         {links.map((link) => {
@@ -27,7 +27,7 @@ export function SiteHeader() {
           return <a key={link.href} href={link.href} className={active ? 'nav-link active' : 'nav-link'}>{link.label}</a>
         })}
       </nav>
-      <a className="header-note" href="/contact">Let&apos;s connect <span aria-hidden="true">↗</span></a>
+      <a className="header-note" href="/contact">Contact office <span aria-hidden="true">↗</span></a>
       <button className="menu-toggle" type="button" aria-expanded={open} aria-controls="mobile-nav" onClick={() => setOpen(!open)}>
         <span className="sr-only">Buka menu</span>
         <span className="menu-line" />
