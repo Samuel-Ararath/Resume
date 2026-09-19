@@ -17,8 +17,10 @@ export const experiences: Experience[] = [
 ]
 
 export const education = [
-  { institution: 'SMA N 10 JAKARTA', program: 'Natural Sciences', period: 'Jul 2020 – May 2022', logo: '/logos/logo-sman-10-jakarta.png' },
   { institution: 'Institut Teknologi Sumatera', program: 'Bachelor of Engineering, Industrial Engineering', period: '2022 – Present', logo: '/logos/logo-itera.png' },
+  { institution: 'SMA N 10 JAKARTA', program: 'Natural Sciences', period: 'Jul 2020 – May 2022', logo: '/logos/logo-sman-10-jakarta.png' },
+  { institution: 'SMP Hati Suci', program: 'Junior High School', period: '2017 – 2020', logo: '/logos/logo-hati-suci.png' },
+  { institution: 'SD Hati Suci', program: 'Elementary School', period: '2011 – 2017', logo: '/logos/logo-hati-suci.png' },
 ]
 
 export const volunteering: Volunteering[] = [
