@@ -58,7 +58,7 @@ export function FilmArchive({ films, synced, embedded = false }: { films: Film[]
   const genres = useMemo(() => [...new Set(films.flatMap((film) => film.genres))].sort((a, b) => a.localeCompare(b)), [films])
   const filteredFilms = useMemo(() => {
     const result = films.filter((film) => {
-      const matchesType = type === 'Semua' || film.type === type
+      const matchesType = type === 'Semua' || (type === 'Movie' ? film.type === 'Film' : film.type === type)
       const matchesStatus = status === 'Semua status' || film.watchStatus === status
       const matchesGenre = genre === 'Semua genre' || film.genres.includes(genre)
       const haystack = `${film.title} ${film.genres.join(' ')}`.toLowerCase()

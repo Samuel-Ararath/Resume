@@ -11,25 +11,40 @@ export type NotionBook = {
   url: string
 }
 
+const categoryLabels: Record<string, string> = {
+  book: 'Buku',
+  novel: 'Novel',
+  manga: 'Manga',
+  manhua: 'Manhua',
+  manhwa: 'Manhwa',
+}
+
+function progressFor(row: any) {
+  if (row.media_type === 'book' && row.total_pages != null) return `${row.total_pages} halaman`
+  if (['manga', 'manhua', 'manhwa'].includes(row.media_type) && (row.total_chapters != null || row.chapters_read != null)) {
+    return `${row.chapters_read ?? 0}/${row.total_chapters ?? '—'} bab`
+  }
+  return undefined
+}
+
 export async function getBooks(): Promise<NotionBook[]> {
   const { data, error } = await supabase
     .from('media_books')
     .select('*')
+    .order('title', { ascending: true })
 
   if (error || !data) return []
 
   return data.map((row) => ({
     id: row.id,
-    title: row.title,
+    title: row.title ?? 'Tanpa judul',
     author: row.author ?? '',
-    category: row.category ?? '',
+    category: categoryLabels[row.media_type] ?? 'Buku',
     status: row.status ?? '',
-    genres: row.genres ?? [],
-    progress: row.progress ?? undefined,
-    url: row.url ?? '',
+    genres: Array.isArray(row.genres) ? row.genres : [],
+    progress: progressFor(row),
+    url: row.source_notion_url ?? '',
   }))
 }
 
-// Kept as an alias for existing imports while the archive moves away from its
-// old Notion-backed name.
 export const getNotionBooks = getBooks

@@ -350,3 +350,33 @@ body:not(:has(.hero)) .page-section { background:var(--paper); }
 @media (max-width:600px) {
   .section-header { align-items:flex-start; gap:1rem; }
 }
+
+
+/* Reflection document template */
+.reflection-detail { padding-top: 42px; padding-bottom: 120px; }
+.reflection-document-head { width: min(100%, 760px); margin: 48px auto 0; }
+.reflection-document-icon { display:grid; width:64px; height:64px; place-items:center; margin-bottom:30px; border:1px solid var(--line); border-radius:16px; background:rgba(255,255,255,.24); font-size:32px; }
+.reflection-document-head h1 { max-width:760px; margin:14px 0 34px; font-family:var(--serif); font-size:clamp(44px,7vw,82px); font-weight:500; line-height:1.02; letter-spacing:-.045em; }
+.reflection-properties { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 34px; border-top:1px solid var(--line); }
+.reflection-properties>div { display:flex; align-items:baseline; justify-content:space-between; gap:18px; min-height:58px; padding:16px 0; border-bottom:1px solid var(--line); }
+.reflection-property-label { color:var(--muted); font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; }
+.reflection-properties strong { color:var(--ink); font-size:13px; font-weight:500; text-align:right; }
+.reflection-document-rule { width:min(100%,760px); height:1px; margin:58px auto 0; background:var(--line); }
+.reflection-document-body { width:min(100%,760px); margin:0 auto; }
+.reflection-reader { padding:54px 0 0; color:var(--ink); font-family:var(--serif); font-size:20px; line-height:1.8; }
+.reflection-reader p { margin:0 0 28px; }
+.reflection-reader h2,.reflection-reader h3 { margin:42px 0 18px; font-family:var(--serif); font-weight:500; line-height:1.2; }
+.reflection-reader h2 { font-size:34px; }
+.reflection-reader h3 { font-size:27px; }
+.reflection-scripture { margin:0 0 34px; padding:22px 28px; border-left:3px solid var(--violet); background:rgba(255,255,255,.22); color:var(--ink); font-family:var(--serif); font-size:clamp(21px,2.4vw,29px); line-height:1.55; }
+.reflection-scripture p { margin:0; }
+@media (max-width:680px) {
+  .reflection-detail { padding-top:28px; padding-bottom:86px; }
+  .reflection-document-head { margin-top:34px; }
+  .reflection-document-head h1 { margin-bottom:28px; font-size:clamp(42px,13vw,64px); }
+  .reflection-properties { display:block; }
+  .reflection-properties>div { min-height:52px; }
+  .reflection-document-rule { margin-top:44px; }
+  .reflection-reader { padding-top:38px; font-size:18px; line-height:1.75; }
+  .reflection-scripture { padding:18px 20px; font-size:21px; }
+}
