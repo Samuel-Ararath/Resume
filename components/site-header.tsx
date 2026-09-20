@@ -17,9 +17,8 @@ export function SiteHeader() {
 
   return (
     <header className="site-header">
-      <a className="wordmark" href="/" aria-label="Samuel, kembali ke Home">
-        <span className="wordmark-mark">S</span>
-        <span>Samuel<span className="wordmark-dot">.</span><small>Academic portfolio</small></span>
+      <a className="wordmark" href="/" aria-label="ME, kembali ke Home">
+        <span className="wordmark-mark">ME</span>
       </a>
       <nav className="desktop-nav" aria-label="Navigasi utama">
         {links.map((link) => {
