@@ -8,6 +8,7 @@ declare namespace JSX {
     mo: Record<string, unknown>
     mn: Record<string, unknown>
     mfrac: Record<string, unknown>
+    msqrt: Record<string, unknown>
     mtext: Record<string, unknown>
     msub: Record<string, unknown>
     msup: Record<string, unknown>
@@ -24,6 +25,7 @@ declare module 'react' {
       mo: Record<string, unknown>
       mn: Record<string, unknown>
       mfrac: Record<string, unknown>
+      msqrt: Record<string, unknown>
       mtext: Record<string, unknown>
       msub: Record<string, unknown>
       msup: Record<string, unknown>
