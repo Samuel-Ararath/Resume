@@ -238,6 +238,41 @@ body:not(:has(.hero)) .page-section { background:var(--paper); }
 /* Academic skill pages */
 .skill-page { min-height:100vh; background:#f5f3ee; color:#172b42; }
 .skill-reading-shell { width:min(1180px,calc(100% - 48px)); margin:0 auto; padding:28px 0 90px; }
+.skill-layout { display:grid; grid-template-columns:3rem 1fr 16rem; gap:2rem; align-items:start; padding-top:68px; }
+.skill-symbol { position:sticky; top:120px; align-self:start; padding-top:2rem; color:#b99a62; font-family:var(--serif); font-size:2rem; line-height:1; text-align:center; }
+.skill-toc { position:sticky; top:105px; align-self:start; }
+.skill-article { min-width:0; }
+.skill-section { padding:0 0 72px; }
+.section-header { display:flex; align-items:baseline; gap:2rem; margin:0 0 22px; }
+.section-num { min-width:2.5rem; flex-shrink:0; color:#888; font-family:var(--mono); font-size:.85rem; letter-spacing:.1em; }
+.section-title { margin:0; color:#172b42; font-family:var(--serif); font-size:clamp(27px,3vw,38px); font-weight:400; letter-spacing:-.035em; }
+.section-content { min-width:0; }
+.section-content p { max-width:760px; }
+.skill-section-number { display:none; }
+.equation-block { margin:28px 0; padding:22px; border-left:2px solid #b99a62; background:rgba(185,154,98,.08); }
+.eq-label { margin-bottom:15px; color:#8b2635; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
+.eq-formula { overflow-x:auto; padding:12px 0 16px; color:#172b42; font-family:var(--serif); font-size:1.5rem; }
+.eq-formula math { display:block; min-width:max-content; }
+.eq-variables,.eq-interpretation,.eq-assumptions { margin-top:13px; color:#4f5d66; font-size:13px; line-height:1.7; }
+.eq-variables strong,.eq-interpretation strong,.eq-assumptions strong { color:#234d6f; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; }
+.reference-list { display:grid; gap:12px; max-width:760px; padding-left:24px; color:#4f5d66; font-size:14px; line-height:1.7; }
+.related-links { padding:18px; border-top:1px solid rgba(23,43,66,.16); border-bottom:1px solid rgba(23,43,66,.16); color:#234d6f!important; }
+.related-links a { color:#8b2635; text-decoration:underline; text-underline-offset:3px; }
+.skill-table-section { margin:0 0 36px; padding:0; border:0; }
+.skill-table-section table { width:100%; border-collapse:collapse; font-size:13px; }
+.skill-table-section caption { margin:0 0 12px; color:#172b42; font-family:var(--serif); font-size:20px; text-align:left; }
+.skill-table-section th,.skill-table-section td { border:1px solid rgba(23,43,66,.18); border-radius:0; padding:13px 12px; text-align:left; vertical-align:top; }
+.skill-table-section th { color:#8b2635; font-family:var(--mono); font-size:10px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; }
+.skill-table-section tbody tr:nth-child(even) { background:rgba(0,0,0,.02); }
+.skill-table-section td { color:#4f5d66; line-height:1.55; }
+.skill-figure { margin:0 0 58px; padding:22px 0 18px; border-top:1px solid rgba(23,43,66,.18); border-bottom:1px solid rgba(23,43,66,.18); }
+.skill-figure svg { display:block; width:100%; height:auto; }
+.skill-figure rect { fill:#f5f3ee; stroke:#234d6f; stroke-width:1.5; }
+.skill-figure path { fill:none; stroke:#b99a62; stroke-width:1.5; }
+.skill-figure text { fill:#172b42; font-family:var(--mono); font-size:11px; letter-spacing:1px; }
+.skill-figure figcaption { margin-top:12px; color:#6a747b; font-family:var(--mono); font-size:10px; line-height:1.6; }
+@media (max-width:900px) { .skill-layout { grid-template-columns:2.5rem 1fr; } .skill-toc { grid-column:2; grid-row:1; position:static; margin-bottom:40px; } .skill-article { grid-column:2; grid-row:2; } }
+@media (max-width:600px) { .skill-layout { grid-template-columns:1fr; gap:0; } .skill-symbol { display:none; } .skill-toc,.skill-article { grid-column:1; } .skill-toc { margin-bottom:45px; } .section-header { gap:1rem; } .skill-table-section { overflow-x:auto; } .skill-table-section table { min-width:650px; } }
 .skill-breadcrumb { display:flex; flex-wrap:wrap; gap:10px; align-items:center; color:#6a747b; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; }
 .skill-breadcrumb a { color:#8b2635; border-bottom:1px solid rgba(139,38,53,.28); }
 .skill-hero { max-width:850px; padding:95px 0 76px; border-bottom:1px solid rgba(23,43,66,.18); }
