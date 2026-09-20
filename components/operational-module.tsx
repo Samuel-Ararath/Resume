@@ -19,6 +19,8 @@ function MathFormula({ kind }: { kind: string }) {
 
 
 
+function TableBlock({ table }: { table: NonNullable<Section['table']> }) { return <div className="skill-table-section"><table><caption>{table.caption}</caption><thead><tr>{table.heads.map((head) => <th key={head}>{head}</th>)}</tr></thead><tbody>{table.rows.map((row) => <tr key={row[0]}>{row.map((cell) => <td key={cell}>{cell}</td>)}</tr>)}</tbody></table></div> }
+
 const equations: Eq[] = [
   { label: 'Utilization', kind: 'utilization', formula: 'Actual Output / Design Capacity × 100%', variables: 'Actual Output = unit nyata yang dihasilkan; Design Capacity = output maksimum teoritis dalam kondisi ideal.', interpretation: 'Mengukur intensitas penggunaan kapasitas desain. Utilization tinggi tidak selalu berarti proses efisien karena downtime dan kualitas belum diperhitungkan.', assumptions: 'Kedua kapasitas berada pada periode, unit, dan definisi produk yang sama.', },
   { label: 'Efficiency', kind: 'efficiency', formula: 'Actual Output / Effective Capacity × 100%', variables: 'Effective Capacity = kapasitas desain setelah dikurangi maintenance terencana, setup, dan batas operasional lain.', interpretation: 'Mengukur seberapa baik kapasitas yang benar-benar tersedia dimanfaatkan.', assumptions: 'Downtime terencana didefinisikan konsisten dan actual output telah dikurangi unit cacat bila analisis mensyaratkannya.', },
