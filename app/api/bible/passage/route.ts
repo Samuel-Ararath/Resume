@@ -19,6 +19,13 @@ const BOOKS: Array<[string, string[]]> = [
   ['2PE', ['2 petrus', '2petrus', '2 peter']], ['1JN', ['1 yohanes', '1yohanes', '1 john']], ['2JN', ['2 yohanes', '2yohanes', '2 john']], ['3JN', ['3 yohanes', '3yohanes', '3 john']], ['JUD', ['yudas', 'jude']], ['REV', ['wahyu', 'revelation', 'rev']],
 ]
 
+class YouVersionApiError extends Error {
+  constructor(public status: number, public endpoint: string) {
+    super(`YouVersion API returned ${status} for ${endpoint}`)
+    this.name = 'YouVersionApiError'
+  }
+}
+
 type BibleVersion = {
   id: number | string
   abbreviation?: string
@@ -72,7 +79,7 @@ async function apiGet(path: string, appKey: string) {
     headers: { 'X-YVP-App-Key': appKey, Accept: 'application/json' },
     next: { revalidate: 3600 },
   })
-  if (!response.ok) throw new Error(`YouVersion API returned ${response.status}`)
+  if (!response.ok) throw new YouVersionApiError(response.status, path.split('?')[0])
   return response.json()
 }
 
@@ -123,7 +130,20 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ reference: rawReference, usfm, isOldTestament, passages })
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Terjadi kesalahan saat mengambil ayat.'
-    return NextResponse.json({ error: message.includes('returned 401') ? 'App Key ditolak. Periksa key pada environment hosting.' : message.includes('returned 403') ? 'Versi ini belum tersedia untuk aplikasi. Periksa lisensi dan aksesnya di YouVersion.' : 'Tidak berhasil mengambil ayat. Coba lagi sebentar.' }, { status: 502 })
+    if (error instanceof YouVersionApiError) {
+      console.error('[bible-finder] YouVersion request failed', { status: error.status, endpoint: error.endpoint })
+      const detail = error.status === 401
+        ? 'YouVersion menolak App Key. Periksa bahwa YVP_APP_KEY berisi App Key dari aplikasi yang aktif.'
+        : error.status === 403
+          ? 'Aplikasi belum memiliki izin/lisensi untuk mengakses Bible collection ini.'
+          : error.status === 404
+            ? 'Endpoint atau referensi ayat tidak ditemukan di YouVersion.'
+            : error.status === 429
+              ? 'Batas permintaan YouVersion tercapai. Coba lagi sebentar.'
+              : `YouVersion mengembalikan HTTP ${error.status}.`
+      return NextResponse.json({ error: `${detail} (${error.endpoint})` }, { status: 502 })
+    }
+    console.error('[bible-finder] Unexpected request error', error)
+    return NextResponse.json({ error: 'Tidak dapat terhubung ke YouVersion. Coba lagi sebentar.' }, { status: 502 })
   }
 }
