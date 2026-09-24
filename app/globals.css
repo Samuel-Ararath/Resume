@@ -531,3 +531,30 @@ body:not(:has(.hero)) .page-section { background:var(--paper); }
   .skill-page-premium .eq-details > div { border-right:0; border-bottom:1px solid var(--line); }
   .skill-page-premium .eq-details > div:last-child { border-bottom:0; }
 }
+
+
+/* Bible finder in the Renungan section */
+.bible-finder { margin: 34px 0 50px; padding: clamp(22px,4vw,38px); border: 1px solid rgba(81,75,145,.18); border-radius: 24px 24px 8px 24px; background: linear-gradient(145deg,rgba(255,255,255,.68),rgba(247,238,230,.78)); box-shadow: 0 18px 55px rgba(56,52,87,.07); }
+.bible-finder-head { max-width: 670px; }
+.bible-finder-head h2 { margin: 8px 0; font-family: var(--serif); font-size: clamp(30px,4vw,42px); font-weight: 500; line-height: 1.08; letter-spacing: -.035em; }
+.bible-finder-head > p:last-child { margin: 0; color: var(--muted); }
+.bible-finder-form { margin-top: 24px; }
+.bible-finder-form > label { display: block; margin-bottom: 8px; color: var(--ink); font-size: 12px; font-weight: 600; }
+.bible-finder-row { display: flex; gap: 10px; }
+.bible-finder-row input { flex: 1; min-width: 0; min-height: 50px; padding: 0 15px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,.72); color: var(--ink); outline: none; }
+.bible-finder-row input:focus { border-color: var(--violet); box-shadow: 0 0 0 3px rgba(81,75,145,.12); }
+.bible-finder-row .button { flex: none; border: 0; cursor: pointer; }
+.bible-finder-row .button:disabled { opacity: .65; cursor: wait; }
+.bible-finder-form small { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; }
+.bible-finder-message { margin: 18px 0 0; padding: 13px 15px; border-left: 3px solid var(--coral); border-radius: 4px 10px 10px 4px; background: rgba(239,173,145,.2); color: var(--ink); font-size: 13px; }
+.bible-results { margin-top: 30px; }
+.bible-results-title { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.bible-results-title h3 { margin: 0; font-family: var(--serif); font-size: 25px; font-weight: 500; }
+.bible-results-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin-top: 14px; }
+.bible-passage { min-width: 0; padding: 18px; border: 1px solid var(--line); border-radius: 14px 14px 5px 14px; background: rgba(255,255,255,.52); }
+.bible-passage-label { margin-bottom: 10px; color: var(--violet); font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+.bible-passage p { margin: 0; color: var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.7; white-space: pre-wrap; }
+.bible-passage .bible-unavailable { color: var(--muted); font-family: var(--sans); font-size: 13px; }
+.bible-copyright { display: block; margin-top: 14px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+.bible-results-note { margin: 14px 0 0; color: var(--muted); font-size: 10px; }
+@media (max-width: 680px) { .bible-finder-row { flex-direction: column; } .bible-finder-row .button { min-height: 48px; } .bible-results-grid { grid-template-columns: 1fr; } .bible-results-title { display: block; } .bible-results-title h3 { margin-top: 5px; } }
