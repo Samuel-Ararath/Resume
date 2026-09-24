@@ -30,8 +30,9 @@ type BibleVersion = {
   id: number | string
   abbreviation?: string
   name?: string
+  title?: string
   name_local?: string
-  language?: { id?: string; name?: string; name_local?: string }
+  language?: { id?: string; name?: string; name_local?: string; iso_639_1?: string; iso_639_3?: string }
   language_id?: string
   language_code?: string
   [key: string]: unknown
@@ -65,7 +66,7 @@ function rowsFrom(payload: unknown): BibleVersion[] {
 }
 
 function textOf(version: BibleVersion) {
-  return [version.abbreviation, version.name, version.name_local, version.language?.id, version.language?.name, version.language?.name_local, version.language_id, version.language_code]
+  return [version.abbreviation, version.name, version.title, version.name_local, version.language?.id, version.language?.name, version.language?.name_local, version.language?.iso_639_1, version.language?.iso_639_3, version.language_id, version.language_code]
     .filter((part) => typeof part === 'string').join(' ').toLowerCase()
 }
 
@@ -93,7 +94,7 @@ export async function GET(request: Request) {
   if (!usfm) return NextResponse.json({ error: 'Masukkan referensi seperti “Yohanes 3:16”, “Kejadian 1:1-3”, atau “JHN.3.16”.' }, { status: 400 })
 
   try {
-    const versionData = await apiGet('/bibles', appKey)
+    const versionData = await apiGet('/bibles?language_ranges%5B%5D=ind&language_ranges%5B%5D=eng&language_ranges%5B%5D=heb&language_ranges%5B%5D=grc', appKey)
     const versions = rowsFrom(versionData)
     if (!versions.length) return NextResponse.json({ error: 'Daftar versi Alkitab tidak tersedia untuk App Key ini. Periksa lisensi dan akses Bible collection di YouVersion.' }, { status: 403 })
 
