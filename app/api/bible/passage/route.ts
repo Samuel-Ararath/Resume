@@ -78,7 +78,7 @@ function cleanContent(value: unknown) {
 async function apiGet(path: string, appKey: string) {
   const response = await fetch(`${API_BASE}${path}`, {
     headers: { 'X-YVP-App-Key': appKey, Accept: 'application/json' },
-    next: { revalidate: 3600 },
+    ...(path.startsWith('/bibles?') ? { cache: 'no-store' as const } : { next: { revalidate: 3600 } }),
   })
   if (!response.ok) throw new YouVersionApiError(response.status, path.split('?')[0])
   return response.json()
@@ -98,12 +98,13 @@ export async function GET(request: Request) {
     const versions = rowsFrom(versionData)
     if (!versions.length) return NextResponse.json({ error: 'Daftar versi Alkitab tidak tersedia untuk App Key ini. Periksa lisensi dan akses Bible collection di YouVersion.' }, { status: 403 })
 
-    const find = (abbreviations: string[]) => versions.find((version) => abbreviations.includes((version.abbreviation ?? '').toUpperCase()))
+    const find = (abbreviations: string[], titleTerms: string[]) => versions.find((version) => abbreviations.includes((version.abbreviation ?? '').toUpperCase()))
+      ?? versions.find((version) => titleTerms.some((term) => textOf(version).includes(term)))
     const selected: Array<{ label: string; version?: BibleVersion }> = [
-      { label: 'TB · Bahasa Indonesia', version: find(['TB']) },
-      { label: 'ILT · Indonesian Literal Translation', version: find(['ILT']) },
-      { label: 'NIV · English', version: find(['NIV']) },
-      { label: 'KJV · English', version: find(['KJV']) },
+      { label: 'TB · Bahasa Indonesia', version: find(['TB'], ['alkitab terjemahan baru']) },
+      { label: 'ILT · Indonesian Literal Translation', version: find(['ILT'], ['indonesian literal translation']) },
+      { label: 'NIV · English', version: find(['NIV'], ['new international version']) },
+      { label: 'KJV · English', version: find(['KJV'], ['king james version']) },
     ]
     const isOldTestament = !['MAT', 'MRK', 'LUK', 'JHN', 'ACT', 'ROM', '1CO', '2CO', 'GAL', 'EPH', 'PHP', 'COL', '1TH', '2TH', '1TI', '2TI', 'TIT', 'PHM', 'HEB', 'JAS', '1PE', '2PE', '1JN', '2JN', '3JN', 'JUD', 'REV'].includes(usfm.slice(0, 3))
     const originalCandidates = versions.filter((version) => {
@@ -117,19 +118,20 @@ export async function GET(request: Request) {
     selected.push({ label: isOldTestament ? 'Bahasa asli · Ibrani' : 'Bahasa asli · Yunani', version: original })
 
     const passages = await Promise.all(selected.map(async ({ label, version }) => {
-      if (!version) return { label, available: false, content: '' }
+      if (!version) return { label, available: false, content: '', reason: 'Edisi ini tidak muncul dalam Bible collection yang dapat diakses App Key.' }
       try {
         const payload = await apiGet(`/bibles/${encodeURIComponent(String(version.id))}/passages/${encodeURIComponent(usfm)}?format=text`, appKey)
         const data = (payload as { data?: Record<string, unknown> }).data ?? payload as Record<string, unknown>
         const content = cleanContent(data.content ?? data.text)
         const copyright = typeof data.copyright === 'string' ? data.copyright : typeof data.copyright_short === 'string' ? data.copyright_short : ''
         return { label, available: Boolean(content), content, copyright, versionId: version.id }
-      } catch {
-        return { label, available: false, content: '' }
+      } catch (error) {
+        return { label, available: false, content: '', reason: error instanceof YouVersionApiError ? `YouVersion HTTP ${error.status} untuk versi ini.` : 'Permintaan ke versi ini gagal.' }
       }
     }))
 
-    return NextResponse.json({ reference: rawReference, usfm, isOldTestament, passages })
+    const availableVersions = versions.slice(0, 30).map((version) => ({ abbreviation: version.abbreviation ?? '', title: version.title ?? version.name ?? '', id: version.id }))
+    return NextResponse.json({ reference: rawReference, usfm, isOldTestament, passages, availableVersions })
   } catch (error) {
     if (error instanceof YouVersionApiError) {
       console.error('[bible-finder] YouVersion request failed', { status: error.status, endpoint: error.endpoint })

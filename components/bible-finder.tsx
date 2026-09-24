@@ -2,8 +2,8 @@
 
 import { FormEvent, useState } from 'react'
 
-type Passage = { label: string; available: boolean; content: string; copyright?: string; versionId?: string | number }
-type Result = { reference: string; usfm: string; passages: Passage[] }
+type Passage = { label: string; available: boolean; content: string; copyright?: string; reason?: string; versionId?: string | number }
+type Result = { reference: string; usfm: string; passages: Passage[]; availableVersions?: Array<{ abbreviation: string; title: string; id: number | string }> }
 
 export function BibleFinder() {
   const [reference, setReference] = useState('')
@@ -48,11 +48,11 @@ export function BibleFinder() {
       <div className="bible-results-grid">
         {result.passages.map((passage) => <article className="bible-passage" key={passage.label}>
           <div className="bible-passage-label">{passage.label}</div>
-          {passage.available && passage.content ? <p>{passage.content}</p> : <p className="bible-unavailable">Versi ini belum tersedia untuk App Key/lisensi yang aktif.</p>}
+          {passage.available && passage.content ? <p>{passage.content}</p> : <p className="bible-unavailable">{passage.reason || 'Versi ini belum tersedia untuk App Key/lisensi yang aktif.'}</p>}
           {passage.copyright && <small className="bible-copyright">{passage.copyright}</small>}
         </article>)}
       </div>
-      <p className="bible-results-note">Teks ditampilkan dari YouVersion sesuai versi dan lisensi yang tersedia untuk aplikasi ini.</p>
+      <p className="bible-results-note">Teks ditampilkan dari YouVersion sesuai versi dan lisensi yang tersedia untuk aplikasi ini.</p>{result.availableVersions?.length ? <details className="bible-catalog-debug"><summary>Versi dalam katalog yang dapat diakses</summary><p>{result.availableVersions.map((version) => `${version.abbreviation || version.id} — ${version.title}`).join(' · ')}</p></details> : null}
     </div>}
   </section>
 }
