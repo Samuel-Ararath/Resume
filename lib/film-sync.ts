@@ -26,6 +26,8 @@ function watchStatus(value: unknown): Film['watchStatus'] {
 }
 
 export async function getSyncedFilms(): Promise<{ films: Film[]; synced: boolean }> {
+  if (!supabase) return { films: [], synced: false }
+
   const { data, error } = await supabase
     .from('media_film')
     .select('*')

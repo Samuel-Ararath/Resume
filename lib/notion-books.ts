@@ -28,6 +28,8 @@ function progressFor(row: any) {
 }
 
 export async function getBooks(): Promise<NotionBook[]> {
+  if (!supabase) return []
+
   const { data, error } = await supabase
     .from('media_books')
     .select('*')

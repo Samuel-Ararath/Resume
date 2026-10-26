@@ -39,6 +39,8 @@ function excerptFrom(content: string) {
 }
 
 export async function getSyncedReflections(): Promise<{ reflections: ReflectionEntry[]; synced: boolean }> {
+  if (!supabase) return { reflections: [], synced: false }
+
   const { data, error } = await supabase
     .from('reflections')
     .select('*')
