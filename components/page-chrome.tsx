@@ -6,7 +6,7 @@ export function SectionLabel({ children }: { children: string }) {
 }
 
 export function PageIntro({ label, title, description }: { label: string; title: ReactNode; description: string }) {
-  return <section className="page-intro section-shell"><SectionLabel>{label}</SectionLabel><div className="page-intro-copy"><h1>{title}</h1><p>{description}</p></div></section>
+  return <section className="page-intro"><div className="section-shell page-intro-inner"><SectionLabel>{label}</SectionLabel><div className="page-intro-copy"><h1>{title}</h1><p>{description}</p></div></div></section>
 }
 
 export function PageChrome({ children }: { children: ReactNode }) {
