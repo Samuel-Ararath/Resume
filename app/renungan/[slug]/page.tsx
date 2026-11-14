@@ -20,9 +20,9 @@ export default async function ReflectionDetailPage({ params }: { params: Promise
       <h1>{entry.title}</h1>
       <div className="reflection-properties" aria-label="Informasi renungan">
         <div><span className="reflection-property-label">Tanggal</span><strong>{formatDate(entry.date)}</strong></div>
-        <div><span className="reflection-property-label">Tag</span><strong>{entry.tags.join(' · ') || '—'}</strong></div>
-        <div><span className="reflection-property-label">Penulis</span><strong>{entry.author || '—'}</strong></div>
-        <div><span className="reflection-property-label">Topik</span><strong>{entry.topics.join(' · ') || '—'}</strong></div>
+        <div><span className="reflection-property-label">Tag</span><strong>{entry.tags.join(' · ') || 'Not listed'}</strong></div>
+        <div><span className="reflection-property-label">Penulis</span><strong>{entry.author || 'Not listed'}</strong></div>
+        <div><span className="reflection-property-label">Topik</span><strong>{entry.topics.join(' · ') || 'Not listed'}</strong></div>
       </div>
     </header>
     <div className="reflection-document-rule" />

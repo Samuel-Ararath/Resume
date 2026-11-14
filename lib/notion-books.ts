@@ -22,7 +22,7 @@ const categoryLabels: Record<string, string> = {
 function progressFor(row: any) {
   if (row.media_type === 'book' && row.total_pages != null) return `${row.total_pages} halaman`
   if (['manga', 'manhua', 'manhwa'].includes(row.media_type) && (row.total_chapters != null || row.chapters_read != null)) {
-    return `${row.chapters_read ?? 0}/${row.total_chapters ?? '—'} bab`
+    return `${row.chapters_read ?? 0}/${row.total_chapters ?? 'Unknown'} bab`
   }
   return undefined
 }

@@ -31,10 +31,10 @@ export function Bookshelf({ books }: { books: NotionBook[] }) {
         <thead><tr><th scope="col">Judul</th><th scope="col">Penulis</th><th scope="col">Genre</th><th scope="col">Status</th><th scope="col">Progress</th><th scope="col"><span className="sr-only">Buka</span></th></tr></thead>
         <tbody>{filtered.map((book, index) => <tr key={book.id}>
           <td><a className="table-title" href={book.url} target="_blank" rel="noreferrer"><span className="table-index">{String(index + 1).padStart(2, '0')}</span><strong>{book.title}</strong></a></td>
-          <td>{book.author || '—'}</td>
-          <td><span className="table-genres">{book.genres.slice(0, 2).join(' · ') || '—'}</span></td>
+          <td>{book.author || 'Not listed'}</td>
+          <td><span className="table-genres">{book.genres.slice(0, 2).join(' · ') || 'Not listed'}</span></td>
           <td><span className="table-status">{book.status || 'Belum dibaca'}</span></td>
-          <td>{book.progress || '—'}</td>
+          <td>{book.progress || 'Not listed'}</td>
           <td><a className="table-arrow" href={book.url} target="_blank" rel="noreferrer" aria-label={`Buka ${book.title}`}>↗</a></td>
         </tr>)}</tbody>
       </table>

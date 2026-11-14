@@ -35,7 +35,7 @@ function FilmTable({ title, films }: { title: string; films: Film[] }) {
                   <td><RatingValue value={film.rating} /></td>
                   <td><span className={`status-pill status-${film.watchStatus.replaceAll(' ', '-').toLowerCase()}`}>{film.watchStatus}</span></td>
                   <td><div className="genre-list">{film.genres.map((genre) => <span key={genre}>{genre}</span>)}</div></td>
-                  <td>{film.generalRating ?? film.malRating}{film.generalRating ? ' TMDB' : film.malRating !== '—' ? ' MAL' : ''}</td>
+                  <td>{film.generalRating ?? film.malRating}{film.generalRating ? ' TMDB' : film.malRating !== 'Not listed' ? ' MAL' : ''}</td>
                 </tr>
               ))}
             </tbody>

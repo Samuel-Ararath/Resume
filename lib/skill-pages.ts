@@ -48,7 +48,7 @@ export const skillPages: SkillPage[] = [
       { label: 'FMEA priority number', formula: 'RPN = Severity × Occurrence × Detection', note: 'A prioritization aid whose meaning depends on the quality of the scoring process.' },
       { label: 'Availability', formula: 'MTBF / (MTBF + MTTR)', note: 'Shows the proportion of scheduled time a repairable asset is available.' },
     ],
-    references: ['ISO 31000, Risk management — Guidelines.', 'IEC 60812, Failure modes and effects analysis.', 'Kaplan & Norton, The Balanced Scorecard.'],
+    references: ['ISO 31000, Risk management: Guidelines.', 'IEC 60812, Failure modes and effects analysis.', 'Kaplan & Norton, The Balanced Scorecard.'],
   },
   {
     slug: 'industrial-management', number: '03', title: 'Industrial Management',
@@ -105,7 +105,7 @@ export const skillPages: SkillPage[] = [
     ],
     equations: [{ label: 'Material balance', formula: 'Inputs = Useful Outputs + Emissions + Residuals', note: 'A conservation framing; the boundary and measurement basis must be specified.' }, { label: 'Impact intensity', formula: 'Total Impact / Functional Unit', note: 'Allows comparison only when the functional unit and impact method are consistent.' }],
     tables: [{ heading: 'Life Cycle Assessment structure', columns: ['Stage', 'Purpose'], rows: [['Goal & scope', 'Define the question, functional unit, boundary, and assumptions.'], ['Inventory', 'Collect inputs, outputs, energy, materials, and emissions.'], ['Impact assessment', 'Translate inventory flows into selected impact categories.'], ['Interpretation', 'Evaluate findings, limitations, sensitivity, and conclusions.']] }],
-    references: ['ISO 14040, Environmental management — Life cycle assessment — Principles and framework.', 'Ellen MacArthur Foundation, Circular economy systems thinking.', 'Graedel & Allenby, Industrial Ecology.'],
+    references: ['ISO 14040, Environmental management: Life cycle assessment: Principles and framework.', 'Ellen MacArthur Foundation, Circular economy systems thinking.', 'Graedel & Allenby, Industrial Ecology.'],
   },
   {
     slug: 'technology-valuation-management', number: '07', title: 'Technology Valuation Management',
@@ -117,7 +117,7 @@ export const skillPages: SkillPage[] = [
       { title: 'Methods and lifecycle evaluation', paragraphs: ['Technology valuation compares alternatives over a common time horizon and functional requirement. The analysis combines technical feasibility, reliability, maintainability, capacity, energy, labor, downtime, spare parts, upgradeability, disposal, and residual value. Historical price, book value, replacement cost, and economic value must be reported as distinct measures.'], bullets: ['Requirements and feasibility screening', 'Lifecycle cost and Total Cost of Ownership', 'Reliability-centered maintenance', 'Replacement and obsolescence analysis'] },
     ],
     equations: [{ label: 'Total Cost of Ownership', formula: 'TCO = Acquisition + Operating + Maintenance + Downtime + Disposal', note: 'The categories and time horizon should be defined for each decision.' }],
-    references: ['ISO 15686, Buildings and constructed assets — Service life planning.', 'Park, Contemporary Engineering Economics.', 'Blanchard, Logistics Engineering and Management.'],
+    references: ['ISO 15686, Buildings and constructed assets: Service life planning.', 'Park, Contemporary Engineering Economics.', 'Blanchard, Logistics Engineering and Management.'],
   },
 ]
 

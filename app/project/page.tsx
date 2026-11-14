@@ -22,7 +22,7 @@ const projectGroups: { label: string; description: string; projects: Project[] }
   ] },
 ]
 
-export const metadata = { title: 'Project — Samuel.', description: 'A formal index of Samuel’s ongoing creative, academic, and research projects.' }
+export const metadata = { title: 'Project: Samuel.', description: 'A formal index of Samuel’s ongoing creative, academic, and research projects.' }
 
 export default function ProjectPage() {
   return <PageChrome><main>
@@ -31,7 +31,7 @@ export default function ProjectPage() {
       <div className="project-intro"><div><p className="eyebrow">Project register</p><h2 id="project-index-title">An ongoing body of <em>work.</em></h2></div><p className="muted-copy">This register records the projects, their starting points, collaborators, and current stage of development.</p></div>
       <div className="project-groups">{projectGroups.map((group, groupIndex) => <section className="project-group" key={group.label} aria-labelledby={`project-group-${group.label.toLowerCase()}`}>
         <div className="project-group-heading"><div><span className="project-group-number">{String(groupIndex + 1).padStart(2, '0')}</span><h2 id={`project-group-${group.label.toLowerCase()}`}>{group.label}</h2></div><p>{group.description}</p></div>
-        <div className="project-table-wrap"><table className="project-table"><caption className="sr-only">Daftar project {group.label}</caption><thead><tr><th scope="col">Project title</th><th scope="col">Start</th><th scope="col">Collaborator</th><th scope="col">Progress</th></tr></thead><tbody>{group.projects.map((project) => <tr key={project.title}><th scope="row">{project.title}</th><td>{project.start}</td><td>{project.collaborator ?? '—'}</td><td><span className="project-progress">{project.progress}</span></td></tr>)}</tbody></table></div>
+        <div className="project-table-wrap"><table className="project-table"><caption className="sr-only">Daftar project {group.label}</caption><thead><tr><th scope="col">Project title</th><th scope="col">Start</th><th scope="col">Collaborator</th><th scope="col">Progress</th></tr></thead><tbody>{group.projects.map((project) => <tr key={project.title}><th scope="row">{project.title}</th><td>{project.start}</td><td>{project.collaborator ?? 'Not listed'}</td><td><span className="project-progress">{project.progress}</span></td></tr>)}</tbody></table></div>
       </section>)}</div>
     </section>
   </main></PageChrome>

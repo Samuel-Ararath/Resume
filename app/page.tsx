@@ -66,7 +66,7 @@ export default function HomePage() {
         <div className="portfolio-intro-copy">
           <p className="portfolio-eyebrow"><span /> Portfolio · Jakarta, Indonesia</p>
           <h1 id="portfolio-title">A collection of<br /><em>work in progress.</em></h1>
-          <p className="portfolio-description">I&apos;m Samuel—a student of industrial engineering, a writer, and a curious observer. This is where I bring together the things I make, study, and keep learning from.</p>
+          <p className="portfolio-description">I&apos;m Samuel, a student of industrial engineering, a writer, and a curious observer. This is where I bring together the things I make, study, and keep learning from.</p>
         </div>
         <a className="portfolio-scroll" href="#selected-work">Explore the collection <span aria-hidden="true">↓</span></a>
       </section>
@@ -77,7 +77,7 @@ export default function HomePage() {
             <p className="portfolio-eyebrow">Selected work & interests</p>
             <h2 id="work-title">Different threads,<br /><em>one point of view.</em></h2>
           </div>
-          <p>Not just a list of projects—a living archive of the work and ideas that matter to me.</p>
+          <p>Not just a list of projects, but a living archive of the work and ideas that matter to me.</p>
         </div>
 
         <div className="portfolio-grid">
@@ -102,7 +102,7 @@ export default function HomePage() {
       </section>
 
       <footer className="portfolio-footer">
-        <span>© 2024—now · Samuel Simanjuntak</span>
+        <span>© 2024 to now · Samuel Simanjuntak</span>
         <span>Industrial engineering · writing · ideas</span>
         <a href="/contact">Have something in mind? <span aria-hidden="true">↗</span></a>
       </footer>

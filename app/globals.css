@@ -336,7 +336,7 @@ body:not(:has(.hero)) .page-section { background:var(--paper); }
   .reflection-scripture { padding:18px 20px; font-size:21px; }
 }
 
-/* Operational management — premium editorial module */
+/* Operational management: premium editorial module */
 .skill-page-premium .skill-reading-shell { max-width: 1180px; }
 .skill-hero-premium { position:relative; overflow:hidden; isolation:isolate; padding:clamp(34px,6vw,82px) clamp(20px,5vw,74px) clamp(28px,5vw,64px); border:1px solid var(--line); border-radius:28px; background:linear-gradient(135deg,rgba(255,255,255,.48),rgba(205,221,232,.28) 52%,rgba(235,205,205,.28)); box-shadow:0 28px 90px rgba(64,65,98,.08); }
 .skill-hero-premium::before,.skill-hero-premium::after { content:""; position:absolute; z-index:-1; border-radius:999px; filter:blur(2px); pointer-events:none; }

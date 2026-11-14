@@ -52,7 +52,7 @@ export async function getSyncedReflections(): Promise<{ reflections: ReflectionE
     const body = row.content ?? ''
     const topics = asList(row.topics)
     return {
-      number: row.devotional_date ? new Date(`${row.devotional_date}T00:00:00`).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) : '—',
+      number: row.devotional_date ? new Date(`${row.devotional_date}T00:00:00`).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) : 'Not dated',
       title: row.title ?? 'Tanpa judul',
       excerpt: excerptFrom(body),
       theme: topics[0] ?? row.category ?? 'Renungan',

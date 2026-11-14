@@ -10,5 +10,5 @@ export function PageIntro({ label, title, description }: { label: string; title:
 }
 
 export function PageChrome({ children }: { children: ReactNode }) {
-  return <><SiteHeader />{children}<footer className="site-footer section-shell"><span>© 2024—now Samuel Simanjuntak</span><span>Made with intention.</span><a href="/">Back to home ↑</a></footer></>
+  return <><SiteHeader />{children}<footer className="site-footer section-shell"><span>© 2024 to now, Samuel Simanjuntak</span><span>Made with intention.</span><a href="/">Back to home ↑</a></footer></>
 }

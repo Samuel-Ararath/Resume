@@ -4,7 +4,7 @@ import { ReflectionBrowser } from '@/components/reflection-browser'
 import { getSyncedReflections } from '@/lib/reflection-sync'
 
 export const dynamic = 'force-dynamic'
-export const metadata = { title: 'Renungan — Samuel.', description: 'Kumpulan renungan dan catatan iman personal.' }
+export const metadata = { title: 'Renungan: Samuel.', description: 'Kumpulan renungan dan catatan iman personal.' }
 
 export default async function ReflectionsPage() {
   const { reflections } = await getSyncedReflections()

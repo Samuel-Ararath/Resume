@@ -14,7 +14,7 @@ function asGenres(value: unknown): string[] {
 }
 
 function ratingText(value: unknown): string {
-  if (value == null || value === '') return '—'
+  if (value == null || value === '') return 'Not listed'
   return String(value)
 }
 
@@ -41,7 +41,7 @@ export async function getSyncedFilms(): Promise<{ films: Film[]; synced: boolean
     rating: ratingText(row['my valutation'] ?? row.rating),
     watchStatus: watchStatus(row['status tonton'] ?? row.status),
     genres: asGenres(row.genre),
-    progress: row['total episodes'] == null ? '—' : `${row['total episodes']} episode`,
+    progress: row['total episodes'] == null ? 'Not listed' : `${row['total episodes']} episode`,
     malRating: ratingText(row.external_rating),
     generalRating: undefined,
     poster: undefined,

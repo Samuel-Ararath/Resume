@@ -52,7 +52,7 @@ export function BibleFinder() {
           {passage.copyright && <small className="bible-copyright">{passage.copyright}</small>}
         </article>)}
       </div>
-      <p className="bible-results-note">Teks ditampilkan dari YouVersion sesuai versi dan lisensi yang tersedia untuk aplikasi ini.</p>{result.availableVersions?.length ? <details className="bible-catalog-debug"><summary>Versi dalam katalog yang dapat diakses</summary><p>{result.availableVersions.map((version) => `${version.abbreviation || version.id} — ${version.title}`).join(' · ')}</p></details> : null}
+      <p className="bible-results-note">Teks ditampilkan dari YouVersion sesuai versi dan lisensi yang tersedia untuk aplikasi ini.</p>{result.availableVersions?.length ? <details className="bible-catalog-debug"><summary>Versi dalam katalog yang dapat diakses</summary><p>{result.availableVersions.map((version) => `${version.abbreviation || version.id}: ${version.title}`).join(' · ')}</p></details> : null}
     </div>}
   </section>
 }

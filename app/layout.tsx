@@ -2,12 +2,13 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import './globals.css'
 import './site-theme.css'
+import { ScrollGradient } from '@/components/scroll-gradient'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://sycesima.web.id'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'SYCESIMA — Samuel Simanjuntak',
+  title: 'SYCESIMA: Samuel Simanjuntak',
   description: 'Situs personal Samuel Simanjuntak, mahasiswa Teknik Industri di Institut Teknologi Sumatera. Jelajahi pengalaman, proyek, keahlian, dan arsip pribadinya.',
   alternates: {
     canonical: '/',
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
     locale: 'id_ID',
     url: '/',
     siteName: 'SYCESIMA',
-    title: 'SYCESIMA — Samuel Simanjuntak',
+    title: 'SYCESIMA: Samuel Simanjuntak',
     description: 'Situs personal Samuel Simanjuntak: Teknik Industri, pengalaman, proyek, dan arsip pengetahuan.',
   },
 }
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="id">
-      <body>{children}</body>
+      <body><ScrollGradient /><div className="site-content">{children}</div></body>
     </html>
   )
 }
