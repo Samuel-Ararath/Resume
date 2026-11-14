@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import './globals.css'
+import './portfolio.css'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://sycesima.web.id'
 
